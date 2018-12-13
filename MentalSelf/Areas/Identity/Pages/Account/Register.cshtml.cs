@@ -41,6 +41,9 @@ namespace MentalSelf.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public string Name { get; set; }
+            
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -67,7 +70,7 @@ namespace MentalSelf.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Name = Input.Name };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MentalSelf.Models.Test>
+
+@{
+    ViewData["Title"] = "Test";
+    ViewData["Message"] = "Select which test you'd like to take.";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-action="Index" asp-route-id="@item.TestID">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+        </tr>
+    }
+</div>

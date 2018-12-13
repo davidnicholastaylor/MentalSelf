@@ -17,12 +17,6 @@ namespace MentalSelf.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string UserEmail { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
         public virtual ICollection<Response> Responses { get; set; }
     }
 }

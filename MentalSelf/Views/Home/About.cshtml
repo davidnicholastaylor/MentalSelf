@@ -1,7 +1,11 @@
-﻿@{
-    ViewData["Title"] = "About";
+﻿@model MentalSelf.Models.Test
+@{
+    ViewData["Title"] = "Test";
+    ViewData["Message"] = "Select which test you'd like to take.";
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
+    <a asp-controller="Tests" asp-action="Index"></a>
+</div>
