@@ -4,25 +4,42 @@
     ViewData["Title"] = "Level 1 General Symptom Measure Adult";
 }
 
+
+<h2>@ViewData["Title"]</h2>
+<br />
+<h4>In the past two weeks, have you experienced any of the following problems?</h4>
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                <h2>@ViewData["Title"]</h2>
-            </th>
-        </tr>
-    </thead>
     <tbody>
         <tr>
-            <td>
+            <td class="col-md-2">
+                <div class="row">
+                    0 = None
+                </div>
+                <div class="row">
+                    1 = Slight
+                </div>
+                <div class="row">
+                    2 = Mild
+                </div>
+                <div class="row">
+                    3 = Moderate
+                </div>
+                <div class="row">
+                    4 = Severe
+                </div>
+            </td>
+            <td class="col-md-10">
                 @foreach (var item in Model.Question)
                 {
                     <div class="row">
-                        @Html.DisplayFor(modelItem => item.QuestionID) @Html.DisplayFor(modelItem => item.QuestionDesc)
+                        @Html.DisplayFor(modelItem => item.QuestionDesc)
                     </div>
                     <div class="row">
-                         @Html.RadioButton("None", 0) 0 | @Html.RadioButton("Slight", 1) 1 | @Html.RadioButton("Mild", 2) 2 | @Html.RadioButton("Moderate", 3) 3 | @Html.RadioButton("Severe", 4) 4
+                        @Html.RadioButton("None", 0) 0 | @Html.RadioButton("Slight", 1) 1 | @Html.RadioButton("Mild", 2) 2 | @Html.RadioButton("Moderate", 3) 3 | @Html.RadioButton("Severe", 4) 4
                     </div>
+                    <br />
+                    <br />
                 }
             </td>
         </tr>

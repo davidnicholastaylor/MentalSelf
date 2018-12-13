@@ -14,6 +14,5 @@ namespace MentalSelf.Models
         [Required]
         public string Title { get; set; }
 
-        public ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }

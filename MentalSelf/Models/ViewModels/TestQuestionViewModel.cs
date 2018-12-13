@@ -13,8 +13,6 @@ namespace MentalSelf.Models.ViewModels
 
         public IEnumerable<Question> Question { get; set; }
         
-        public IEnumerable<TestQuestion> TestQuestion { get; set; }
-
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateTaken { get; set; }

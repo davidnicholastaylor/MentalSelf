@@ -19,6 +19,9 @@ namespace MentalSelf.Models
 
         public QuestionType QuestionType { get; set; }
 
-        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
+        [Required]
+        public int TestId { get; set; }
+
+        public Test Test { get; set; }
     }
 }
