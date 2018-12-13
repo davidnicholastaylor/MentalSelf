@@ -1,28 +1,34 @@
-﻿@model MentalSelf.Models.Test
+﻿@model MentalSelf.Models.ViewModels.TestQuestionViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Level 1 General Symptom Measure Adult";
 }
 
-<h2>Create</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h2>@ViewData["Title"]</h2>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var item in Model.Question)
+                {
+                    <div class="row">
+                        @Html.DisplayFor(modelItem => item.QuestionID) @Html.DisplayFor(modelItem => item.QuestionDesc)
+                    </div>
+                    <div class="row">
+                         @Html.RadioButton("None", 0) 0 | @Html.RadioButton("Slight", 1) 1 | @Html.RadioButton("Mild", 2) 2 | @Html.RadioButton("Moderate", 3) 3 | @Html.RadioButton("Severe", 4) 4
+                    </div>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-<h4>Test</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
 
 <div>
     <a asp-action="Index">Back to List</a>

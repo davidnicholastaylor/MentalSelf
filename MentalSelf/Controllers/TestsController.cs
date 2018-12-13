@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MentalSelf.Data;
 using MentalSelf.Models;
+using MentalSelf.Models.ViewModels;
 
 namespace MentalSelf.Controllers
 {
@@ -51,7 +52,11 @@ namespace MentalSelf.Controllers
         // GET: Tests/Create
         public IActionResult Create()
         {
-            return View();
+            List<Question> questions = _context.Questions.ToList();
+
+            TestQuestionViewModel viewModel = new TestQuestionViewModel();
+            viewModel.Question = questions;
+            return View(viewModel);
         }
 
         // POST: Tests/Create
