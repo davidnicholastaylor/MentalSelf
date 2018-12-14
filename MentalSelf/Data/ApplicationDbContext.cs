@@ -18,6 +18,7 @@ namespace MentalSelf.Data
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<Test> Tests { get; set; }
+        public DbSet<UserTest> UserTests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

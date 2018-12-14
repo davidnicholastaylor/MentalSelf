@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using MentalSelf.Data;
 using MentalSelf.Models;
 using MentalSelf.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace MentalSelf.Controllers
 {
+    [Authorize]
     public class TestsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -46,6 +49,19 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
+            List<DataPoint> dataPoints = new List<DataPoint>();
+
+            dataPoints.Add(new DataPoint("USA", 121));
+            dataPoints.Add(new DataPoint("Great Britain", 67));
+            dataPoints.Add(new DataPoint("China", 70));
+            dataPoints.Add(new DataPoint("Russia", 56));
+            dataPoints.Add(new DataPoint("Germany", 42));
+            dataPoints.Add(new DataPoint("Japan", 41));
+            dataPoints.Add(new DataPoint("France", 42));
+            dataPoints.Add(new DataPoint("South Korea", 21));
+
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
             return View(test);
         }
 
@@ -70,7 +86,7 @@ namespace MentalSelf.Controllers
             {
                 _context.Add(test);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(test);
         }

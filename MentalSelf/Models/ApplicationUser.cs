@@ -17,6 +17,8 @@ namespace MentalSelf.Models
         [Required]
         public string Name { get; set; }
 
+        public virtual ICollection<UserTest> UserTests { get; set; }
+
         public virtual ICollection<Response> Responses { get; set; }
     }
 }

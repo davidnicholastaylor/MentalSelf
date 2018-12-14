@@ -105,20 +105,20 @@ namespace MentalSelf.Migrations
 
                     b.Property<int>("QuestionId");
 
-                    b.Property<int>("TestId");
-
                     b.Property<string>("UserId")
                         .IsRequired();
 
                     b.Property<int>("UserResponse");
 
+                    b.Property<int>("UserTestId");
+
                     b.HasKey("ResponseID");
 
                     b.HasIndex("QuestionId");
 
-                    b.HasIndex("TestId");
-
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserTestId");
 
                     b.ToTable("Responses");
                 });
@@ -139,6 +139,28 @@ namespace MentalSelf.Migrations
                     b.HasData(
                         new { TestID = 1, Title = "Level 1 Cross-Cutting Symptom Measure—Adult" }
                     );
+                });
+
+            modelBuilder.Entity("MentalSelf.Models.UserTest", b =>
+                {
+                    b.Property<int>("UserTestID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<DateTime>("DateTaken")
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("TestID");
+
+                    b.HasKey("UserTestID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TestID");
+
+                    b.ToTable("UserTests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -343,14 +365,26 @@ namespace MentalSelf.Migrations
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MentalSelf.Models.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("MentalSelf.Models.ApplicationUser", "User")
                         .WithMany("Responses")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MentalSelf.Models.UserTest", "UserTest")
+                        .WithMany()
+                        .HasForeignKey("UserTestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MentalSelf.Models.UserTest", b =>
+                {
+                    b.HasOne("MentalSelf.Models.ApplicationUser")
+                        .WithMany("UserTests")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("MentalSelf.Models.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("TestID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

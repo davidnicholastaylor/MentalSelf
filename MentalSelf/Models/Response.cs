@@ -17,9 +17,9 @@ namespace MentalSelf.Models
         public Question Question { get; set; }
 
         [Required]
-        public int TestId { get; set; }
+        public int UserTestId { get; set; }
 
-        public Test Test { get; set; }
+        public UserTest UserTest { get; set; }
 
         [Required]
         public ApplicationUser User { get; set; }
