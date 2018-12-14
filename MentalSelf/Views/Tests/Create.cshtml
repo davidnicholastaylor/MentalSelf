@@ -14,41 +14,45 @@
     <tbody>
         <tr>
             <td class="col-md-10">
-                @foreach (var item in Model.QuestionResponse)
-                {
-                    <div class="row">
-                        @Html.DisplayFor(modelItem => item.Question.QuestionDesc)
-                    </div>
-                    @*@foreach (var res in Model.Response)
+                <form asp-action="Create">
+                    @foreach (var item in Model.QuestionResponse)
+                    {
+                        <div class="row">
+                            @Html.DisplayFor(modelItem => item.Question.QuestionDesc)
+                        </div>
+                        @*@foreach (var res in Model.Response)
                     {*@
-                    <div class="row">
-                        <input asp-for="@item.Response.UserResponse" value="0" type="radio" name='@("response" + item.Question.QuestionID)' />
-                        Not at all
+                        <div class="row">
+                            <input asp-for="@item.Response.UserResponse" value="0" type="radio" name='@("response" + item.Question.QuestionID)' />
+                            Not at all
+                        </div>
+                        <div class="row">
+                            <input asp-for="@item.Response.UserResponse" value="1" type="radio" name='@("response" + item.Question.QuestionID)' /> Rare, less than a couple days
+                        </div>
+                        <div class="row">
+                            <input asp-for="@item.Response.UserResponse" value="2" type="radio" name='@("response" + item.Question.QuestionID)' /> Several Days
+                        </div>
+                        <div class="row">
+                            <input asp-for="@item.Response.UserResponse" value="3" type="radio" name='@("response" + item.Question.QuestionID)' /> More than half the days
+                        </div>
+                        <div class="row">
+                            <input asp-for="@item.Response.UserResponse" value="4" type="radio" name='@("response" + item.Question.QuestionID)' /> Nearly everyday
+                        </div>
+                        <br />
+                        <br />
+                        @* } *@
+                    }
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
                     </div>
-                    <div class="row">
-                        <input asp-for="@item.Response.UserResponse" value="1" type="radio" name='@("response" + item.Question.QuestionID)' /> Rare, less than a couple days
-                    </div>
-                    <div class="row">
-                        <input asp-for="@item.Response.UserResponse" value="2" type="radio" name='@("response" + item.Question.QuestionID)' /> Several Days
-                    </div>
-                    <div class="row">
-                        <input asp-for="@item.Response.UserResponse" value="3" type="radio" name='@("response" + item.Question.QuestionID)' /> More than half the days
-                    </div>
-                    <div class="row">
-                        <input asp-for="@item.Response.UserResponse" value="4" type="radio" name='@("response" + item.Question.QuestionID)' /> Nearly everyday
-                    </div>
-                    <br />
-                    <br />
-                    @* } *@
-                }
-</td>
+            </form>
+            </td>
         </tr>
     </tbody>
 </table>
 
 
 <div>
-    <a asp-action="Create">Save your results</a>
     <a asp-action="Index">Back to List</a>
 </div>
 

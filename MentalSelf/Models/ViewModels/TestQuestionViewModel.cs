@@ -11,14 +11,10 @@ namespace MentalSelf.Models.ViewModels
 {
     public class TestQuestionViewModel
     {
-        public UserTest UserTest { get; set; }
         
         public Test Test { get; set; }
 
         public List<SelectListItem> ResponseList { get; set; }
-
-
-        public QuestionType QuestionType { get; set; }
 
         public IEnumerable<QuestionResponseViewModel> QuestionResponse { get; set; }        
     }

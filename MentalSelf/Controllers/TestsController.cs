@@ -89,17 +89,16 @@ namespace MentalSelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TestID,Title")] UserTest newTest)
+        public async Task<IActionResult> Create(QuestionResponseViewModel questionAnswer)
         {
-            QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
-            viewModel.Response.UserTest = newTest;
+  
             if (ModelState.IsValid)
             {
-                _context.Add(viewModel);
+                _context.Add(questionAnswer.Response );
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Details), new { id = questionAnswer.Response.ResponseID.ToString()});
             }
-            return View(viewModel);
+            return View(questionAnswer);
         }
 
         // GET: Tests/Edit/5
