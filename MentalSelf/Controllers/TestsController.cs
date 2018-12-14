@@ -80,8 +80,9 @@ namespace MentalSelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TestID,Title")] Test test)
+        public async Task<IActionResult> Create([Bind("TestID,Title")] UserTest test)
         {
+            
             if (ModelState.IsValid)
             {
                 _context.Add(test);

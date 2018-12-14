@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +15,7 @@ namespace MentalSelf.Models.ViewModels
         
         public Test Test { get; set; }
 
-        public Response Response { get; set; }
+        public List<SelectListItem> Response { get; set; }
 
         public QuestionType QuestionType { get; set; }
 
