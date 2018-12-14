@@ -68,10 +68,19 @@ namespace MentalSelf.Controllers
         // GET: Tests/Create
         public IActionResult Create()
         {
+            
             List<Question> questions = _context.Questions.ToList();
-
+            List<QuestionResponseViewModel> QR = new List<QuestionResponseViewModel>();
+            foreach (var question in questions)
+            {
+                QuestionResponseViewModel questionResponse = new QuestionResponseViewModel();
+                questionResponse.Question = question;
+                QR.Add(questionResponse);
+            }
+            
+             
             TestQuestionViewModel viewModel = new TestQuestionViewModel();
-            viewModel.Question = questions;
+            viewModel.QuestionResponse = QR;
             return View(viewModel);
         }
 
@@ -80,16 +89,17 @@ namespace MentalSelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TestID,Title")] UserTest test)
+        public async Task<IActionResult> Create([Bind("TestID,Title")] UserTest newTest)
         {
-            
+            QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
+            viewModel.Response.UserTest = newTest;
             if (ModelState.IsValid)
             {
-                _context.Add(test);
+                _context.Add(viewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
             }
-            return View(test);
+            return View(viewModel);
         }
 
         // GET: Tests/Edit/5

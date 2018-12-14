@@ -15,12 +15,12 @@ namespace MentalSelf.Models.ViewModels
         
         public Test Test { get; set; }
 
-        public List<SelectListItem> Response { get; set; }
+        public List<SelectListItem> ResponseList { get; set; }
+
 
         public QuestionType QuestionType { get; set; }
 
-        public IEnumerable<Question> Question { get; set; }
-        
+        public IEnumerable<QuestionResponseViewModel> QuestionResponse { get; set; }        
     }
 
     [DataContract]

@@ -14,29 +14,33 @@
     <tbody>
         <tr>
             <td class="col-md-10">
-                @foreach (var item in Model.Question)
+                @foreach (var item in Model.QuestionResponse)
                 {
                     <div class="row">
-                        @Html.DisplayFor(modelItem => item.QuestionDesc)
+                        @Html.DisplayFor(modelItem => item.Question.QuestionDesc)
+                    </div>
+                    @*@foreach (var res in Model.Response)
+                    {*@
+                    <div class="row">
+                        <input asp-for="@item.Response.UserResponse" value="0" type="radio" name='@("response" + item.Question.QuestionID)' />
+                        Not at all
                     </div>
                     <div class="row">
-                        @Html.RadioButtonFor(r => r.Response, 0) Not at all
+                        <input asp-for="@item.Response.UserResponse" value="1" type="radio" name='@("response" + item.Question.QuestionID)' /> Rare, less than a couple days
                     </div>
                     <div class="row">
-                        @Html.RadioButtonFor(r => r.Response, 1) Rare, less than a couple days
+                        <input asp-for="@item.Response.UserResponse" value="2" type="radio" name='@("response" + item.Question.QuestionID)' /> Several Days
                     </div>
                     <div class="row">
-                        @Html.RadioButtonFor(r => r.Response, 2) Several Days
+                        <input asp-for="@item.Response.UserResponse" value="3" type="radio" name='@("response" + item.Question.QuestionID)' /> More than half the days
                     </div>
                     <div class="row">
-                        @Html.RadioButtonFor(r => r.Response, 3) More than half the days
-                    </div>
-                    <div class="row">
-                        @Html.RadioButtonFor(r => r.Response, 4) Nearly everyday
+                        <input asp-for="@item.Response.UserResponse" value="4" type="radio" name='@("response" + item.Question.QuestionID)' /> Nearly everyday
                     </div>
                     <br />
                     <br />
-                    }
+                    @* } *@
+                }
 </td>
         </tr>
     </tbody>
