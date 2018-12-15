@@ -91,7 +91,11 @@ namespace MentalSelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(QuestionResponseViewModel questionAnswer)
         {
-  
+            ViewData["scripts"] = new List<string>() {
+                //"getSongList",
+                "addResponse"
+            };
+
             if (ModelState.IsValid)
             {
                 _context.Add(questionAnswer.Response );

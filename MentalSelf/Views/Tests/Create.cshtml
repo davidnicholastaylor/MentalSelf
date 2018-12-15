@@ -14,7 +14,7 @@
     <tbody>
         <tr>
             <td class="col-md-10">
-                <form asp-action="Create">
+                <form asp-action="Create" id="TestForm">
                     @foreach (var item in Model.QuestionResponse)
                     {
                         <div class="row">
@@ -58,4 +58,15 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function processForm(e) {
+            e.preventDefault();
+            console.log(e);
+            return false;
+        }
+
+        var form = document.getElementById('TestForm');
+        form.addEventListener("submit", processForm);
+    </script>
 }
+
