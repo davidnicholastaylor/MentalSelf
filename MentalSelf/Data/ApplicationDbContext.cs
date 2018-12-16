@@ -23,6 +23,10 @@ namespace MentalSelf.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<UserTest>()
+               .Property(u => u.DateTaken)
+               .HasDefaultValueSql("GETDATE()");
+
             modelBuilder.Entity<Test>().HasData(
             new Test() 
             {

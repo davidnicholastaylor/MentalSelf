@@ -215,18 +215,11 @@ namespace MentalSelf.Migrations
                     UserTestID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TestID = table.Column<int>(nullable: false),
-                    DateTaken = table.Column<DateTime>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    DateTaken = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserTests", x => x.UserTestID);
-                    table.ForeignKey(
-                        name: "FK_UserTests_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserTests_Tests_TestID",
                         column: x => x.TestID,
@@ -389,11 +382,6 @@ namespace MentalSelf.Migrations
                 column: "UserTestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTests_ApplicationUserId",
-                table: "UserTests",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserTests_TestID",
                 table: "UserTests",
                 column: "TestID");
@@ -426,13 +414,13 @@ namespace MentalSelf.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "UserTests");
 
             migrationBuilder.DropTable(
                 name: "QuestionTypes");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Tests");

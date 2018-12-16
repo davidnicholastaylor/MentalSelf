@@ -147,16 +147,13 @@ namespace MentalSelf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<DateTime>("DateTaken")
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("TestID");
 
                     b.HasKey("UserTestID");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("TestID");
 
@@ -378,10 +375,6 @@ namespace MentalSelf.Migrations
 
             modelBuilder.Entity("MentalSelf.Models.UserTest", b =>
                 {
-                    b.HasOne("MentalSelf.Models.ApplicationUser")
-                        .WithMany("UserTests")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("MentalSelf.Models.Test", "Test")
                         .WithMany()
                         .HasForeignKey("TestID")
