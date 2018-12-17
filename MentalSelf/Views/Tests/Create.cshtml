@@ -1,4 +1,4 @@
-﻿@model MentalSelf.Models.ViewModels.TestQuestionViewModel
+﻿@model MentalSelf.Models.ViewModels.QuestionResponseViewModel
 
 @{
     ViewData["Title"] = "Level 1 General Symptom Measure Adult";
@@ -14,38 +14,33 @@
     <tbody>
         <tr>
             <td class="col-md-10">
-                <form asp-action="Create" id="TestForm">
-                    @foreach (var item in Model.QuestionResponse)
+                <form method="post" asp-action="Create" asp-controller="Tests" id="TestForm">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    @for (var i = 0; i < Model.Questions.Count; i++)
                     {
                         <div class="row">
-                            @Html.DisplayFor(modelItem => item.Question.QuestionDesc)
+                            <input type="hidden" asp-for="@Model.Questions[i].QuestionID" />
+                            <h3>@Model.Questions[i].QuestionDesc</h3>
                         </div>
-                        @*@foreach (var res in Model.Response)
-                    {*@
-                        <div class="row">
-                            <input asp-for="@item.Response.UserResponse" value="0" type="radio" name='@("response" + item.Question.QuestionID)' />
-                            Not at all
-                        </div>
-                        <div class="row">
-                            <input asp-for="@item.Response.UserResponse" value="1" type="radio" name='@("response" + item.Question.QuestionID)' /> Rare, less than a couple days
-                        </div>
-                        <div class="row">
-                            <input asp-for="@item.Response.UserResponse" value="2" type="radio" name='@("response" + item.Question.QuestionID)' /> Several Days
-                        </div>
-                        <div class="row">
-                            <input asp-for="@item.Response.UserResponse" value="3" type="radio" name='@("response" + item.Question.QuestionID)' /> More than half the days
-                        </div>
-                        <div class="row">
-                            <input asp-for="@item.Response.UserResponse" value="4" type="radio" name='@("response" + item.Question.QuestionID)' /> Nearly everyday
-                        </div>
+                        @for (var r = 0; r < Model.UserResponses.Count; r++)
+                        {
+                            <div class="row">
+                                <input asp-for="@Model.Responses[i].UserResponse"
+                                       id=@($"rating-{i}-{r}")
+                                       value="@(Model.UserResponses[r].UserResponseId)"
+                                       type="radio" />
+                                <label for=@($"rating-{i}-{r}")>
+                                    @(Model.UserResponses[r].Rating)
+                                </label>
+                            </div>
+                        }
                         <br />
                         <br />
-                        @* } *@
                     }
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                    <div style="text-align: center">
+                        <input type="submit" value="Submit" class="btn btn-success btn-lg" />
                     </div>
-            </form>
+                </form>
             </td>
         </tr>
     </tbody>
@@ -58,15 +53,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        function processForm(e) {
-            e.preventDefault();
-            console.log(e);
-            return false;
-        }
-
-        var form = document.getElementById('TestForm');
-        form.addEventListener("submit", processForm);
-    </script>
 }
 

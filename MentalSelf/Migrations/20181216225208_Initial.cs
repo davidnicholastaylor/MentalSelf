@@ -76,6 +76,19 @@ namespace MentalSelf.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserResponse",
+                columns: table => new
+                {
+                    UserResponseId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Rating = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserResponse", x => x.UserResponseId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -237,7 +250,7 @@ namespace MentalSelf.Migrations
                     QuestionId = table.Column<int>(nullable: false),
                     UserTestId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    UserResponse = table.Column<int>(nullable: false)
+                    UserResponseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -253,6 +266,12 @@ namespace MentalSelf.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Responses_UserResponse_UserResponseId",
+                        column: x => x.UserResponseId,
+                        principalTable: "UserResponse",
+                        principalColumn: "UserResponseId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Responses_UserTests_UserTestId",
@@ -377,6 +396,11 @@ namespace MentalSelf.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Responses_UserResponseId",
+                table: "Responses",
+                column: "UserResponseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Responses_UserTestId",
                 table: "Responses",
                 column: "UserTestId");
@@ -415,6 +439,9 @@ namespace MentalSelf.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "UserResponse");
 
             migrationBuilder.DropTable(
                 name: "UserTests");

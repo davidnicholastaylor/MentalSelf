@@ -28,6 +28,8 @@ namespace MentalSelf.Models
         public string UserId { get; set; }
 
         [Required]
-        public int UserResponse { get; set; }
+        public int UserResponseId { get; set; }
+
+        public UserResponse UserResponse { get; set; }
     }
 }

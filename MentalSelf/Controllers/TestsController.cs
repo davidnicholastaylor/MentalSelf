@@ -66,21 +66,14 @@ namespace MentalSelf.Controllers
         }
 
         // GET: Tests/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int Id)
         {
             
-            List<Question> questions = _context.Questions.ToList();
-            List<QuestionResponseViewModel> QR = new List<QuestionResponseViewModel>();
-            foreach (var question in questions)
-            {
-                QuestionResponseViewModel questionResponse = new QuestionResponseViewModel();
-                questionResponse.Question = question;
-                QR.Add(questionResponse);
-            }
+            List<Question> questions = await _context.Questions.ToListAsync();
+
+            QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
+            viewModel.Questions = questions;
             
-             
-            TestQuestionViewModel viewModel = new TestQuestionViewModel();
-            viewModel.QuestionResponse = QR;
             return View(viewModel);
         }
 
@@ -89,19 +82,8 @@ namespace MentalSelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(QuestionResponseViewModel questionAnswer)
+        public IActionResult Create(QuestionResponseViewModel questionAnswer)
         {
-            ViewData["scripts"] = new List<string>() {
-                //"getSongList",
-                "addResponse"
-            };
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(questionAnswer.Response );
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details), new { id = questionAnswer.Response.ResponseID.ToString()});
-            }
             return View(questionAnswer);
         }
 

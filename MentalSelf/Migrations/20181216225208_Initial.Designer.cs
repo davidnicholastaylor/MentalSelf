@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MentalSelf.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181216212501_Initial")]
+    [Migration("20181216225208_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,7 @@ namespace MentalSelf.Migrations
                     b.Property<string>("UserId")
                         .IsRequired();
 
-                    b.Property<int>("UserResponse");
+                    b.Property<int>("UserResponseId");
 
                     b.Property<int>("UserTestId");
 
@@ -119,6 +119,8 @@ namespace MentalSelf.Migrations
                     b.HasIndex("QuestionId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserResponseId");
 
                     b.HasIndex("UserTestId");
 
@@ -141,6 +143,19 @@ namespace MentalSelf.Migrations
                     b.HasData(
                         new { TestID = 1, Title = "Level 1 Cross-Cutting Symptom Measure—Adult" }
                     );
+                });
+
+            modelBuilder.Entity("MentalSelf.Models.UserResponse", b =>
+                {
+                    b.Property<int>("UserResponseId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Rating");
+
+                    b.HasKey("UserResponseId");
+
+                    b.ToTable("UserResponse");
                 });
 
             modelBuilder.Entity("MentalSelf.Models.UserTest", b =>
@@ -367,6 +382,11 @@ namespace MentalSelf.Migrations
                     b.HasOne("MentalSelf.Models.ApplicationUser", "User")
                         .WithMany("Responses")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MentalSelf.Models.UserResponse", "UserResponse")
+                        .WithMany()
+                        .HasForeignKey("UserResponseId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MentalSelf.Models.UserTest", "UserTest")
