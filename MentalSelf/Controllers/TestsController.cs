@@ -68,8 +68,8 @@ namespace MentalSelf.Controllers
         // GET: Tests/Create
         public async Task<IActionResult> Create(int Id)
         {
-            
-            List<Question> questions = await _context.Questions.ToListAsync();
+            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestID == Id);
+            List<Question> questions = await _context.Questions.Where(q => q.TestId == test.TestID).ToListAsync();
 
             QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
             viewModel.Questions = questions;

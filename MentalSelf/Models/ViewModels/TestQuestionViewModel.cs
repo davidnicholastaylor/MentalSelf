@@ -11,6 +11,7 @@ namespace MentalSelf.Models.ViewModels
 {
     public class TestQuestionViewModel
     {
+        public UserTest UserTest { get; set; }
         
         public Test Test { get; set; }
 
