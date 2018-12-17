@@ -16,31 +16,33 @@
             <td class="col-md-10">
                 <form method="post" asp-action="Create" asp-controller="Tests">
                     <div asp-validation-summary="ModelOnly"></div>
-                    @for (var i = 0; i < Model.Questions.Count; i++)
-                    {
-                        <div class="row">
-                            <input type="hidden" asp-for="@Model.Responses[i].QuestionId" value="@Model.Questions[i].QuestionID" />
-                            <h3>@Model.Questions[i].QuestionDesc</h3>
-                        </div>
-                        @for (var r = 0; r < Model.UserResponses.Count; r++)
+                    <div asp-for="@Model.UserTest.TestId">
+                        @for (var i = 0; i < Model.Questions.Count; i++)
                         {
                             <div class="row">
-                                <input asp-for="@Model.Responses[i].UserResponseId"
-                                       id=@($"rating-{i}-{r}")
-                                       value="@(Model.UserResponses[r].UserResponseId)"
-                                       type="radio" />
-                                <label for=@($"rating-{i}-{r}")>
-                                    @(Model.UserResponses[r].Rating)
-                                </label>
+                                <input type="hidden" asp-for="@Model.Responses[i].QuestionId" value="@Model.Questions[i].QuestionId" />
+                                <h3>@Model.Questions[i].QuestionDesc</h3>
                             </div>
+                            @for (var r = 0; r < Model.UserResponses.Count; r++)
+                            {
+                                <div class="row">
+                                    <input asp-for="@Model.Responses[i].UserResponseId"
+                                           id=@($"rating-{i}-{r}")
+                                           value="@(Model.UserResponses[r].UserResponseId)"
+                                           type="radio" />
+                                    <label for=@($"rating-{i}-{r}")>
+                                        @(Model.UserResponses[r].Rating)
+                                    </label>
+                                </div>
+                            }
+                            <br />
+                            <br />
                         }
-                        <br />
-                        <br />
-                    }
+                    </div>
                     <div style="text-align: center">
                         <input type="submit" value="Submit" class="btn btn-success btn-lg" />
                     </div>
-                </form>
+</form>
             </td>
         </tr>
     </tbody>

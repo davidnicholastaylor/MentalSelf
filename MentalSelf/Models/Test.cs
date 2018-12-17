@@ -9,7 +9,7 @@ namespace MentalSelf.Models
     public class Test
     {
         [Key]
-        public int TestID { get; set; }
+        public int TestId { get; set; }
 
         [Required]
         public string Title { get; set; }

@@ -53,26 +53,26 @@ namespace MentalSelf.Migrations
                 name: "QuestionTypes",
                 columns: table => new
                 {
-                    QuestionTypeID = table.Column<int>(nullable: false)
+                    QuestionTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuestionTypes", x => x.QuestionTypeID);
+                    table.PrimaryKey("PK_QuestionTypes", x => x.QuestionTypeId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Tests",
                 columns: table => new
                 {
-                    TestID = table.Column<int>(nullable: false)
+                    TestId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tests", x => x.TestID);
+                    table.PrimaryKey("PK_Tests", x => x.TestId);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,7 +198,7 @@ namespace MentalSelf.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    QuestionID = table.Column<int>(nullable: false)
+                    QuestionId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     QuestionDesc = table.Column<string>(nullable: false),
                     QuestionTypeId = table.Column<int>(nullable: false),
@@ -206,18 +206,18 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.QuestionID);
+                    table.PrimaryKey("PK_Questions", x => x.QuestionId);
                     table.ForeignKey(
                         name: "FK_Questions_QuestionTypes_QuestionTypeId",
                         column: x => x.QuestionTypeId,
                         principalTable: "QuestionTypes",
-                        principalColumn: "QuestionTypeID",
+                        principalColumn: "QuestionTypeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Questions_Tests_TestId",
                         column: x => x.TestId,
                         principalTable: "Tests",
-                        principalColumn: "TestID",
+                        principalColumn: "TestId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -225,19 +225,19 @@ namespace MentalSelf.Migrations
                 name: "UserTests",
                 columns: table => new
                 {
-                    UserTestID = table.Column<int>(nullable: false)
+                    UserTestId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TestID = table.Column<int>(nullable: false),
+                    TestId = table.Column<int>(nullable: false),
                     DateTaken = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTests", x => x.UserTestID);
+                    table.PrimaryKey("PK_UserTests", x => x.UserTestId);
                     table.ForeignKey(
-                        name: "FK_UserTests_Tests_TestID",
-                        column: x => x.TestID,
+                        name: "FK_UserTests_Tests_TestId",
+                        column: x => x.TestId,
                         principalTable: "Tests",
-                        principalColumn: "TestID",
+                        principalColumn: "TestId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -245,7 +245,7 @@ namespace MentalSelf.Migrations
                 name: "Responses",
                 columns: table => new
                 {
-                    ResponseID = table.Column<int>(nullable: false)
+                    ResponseId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     QuestionId = table.Column<int>(nullable: false),
                     UserTestId = table.Column<int>(nullable: false),
@@ -254,12 +254,12 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Responses", x => x.ResponseID);
+                    table.PrimaryKey("PK_Responses", x => x.ResponseId);
                     table.ForeignKey(
                         name: "FK_Responses_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "QuestionID",
+                        principalColumn: "QuestionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Responses_AspNetUsers_UserId",
@@ -277,38 +277,50 @@ namespace MentalSelf.Migrations
                         name: "FK_Responses_UserTests_UserTestId",
                         column: x => x.UserTestId,
                         principalTable: "UserTests",
-                        principalColumn: "UserTestID",
+                        principalColumn: "UserTestId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "QuestionTypes",
-                columns: new[] { "QuestionTypeID", "Type" },
+                columns: new[] { "QuestionTypeId", "Type" },
                 values: new object[,]
                 {
                     { 1, "Depression" },
-                    { 2, "Anger" },
-                    { 3, "Mania" },
-                    { 4, "Anxiety" },
-                    { 5, "Somatic Symptoms" },
-                    { 6, "Suicidal Ideation" },
-                    { 7, "Psychosis" },
-                    { 8, "Sleep Problems" },
-                    { 9, "Memory" },
-                    { 10, "Repetative Thoughts and Behaviors" },
-                    { 11, "Dissociation" },
+                    { 13, "Substance Use" },
                     { 12, "Personality Functioning" },
-                    { 13, "Substance Use" }
+                    { 11, "Dissociation" },
+                    { 9, "Memory" },
+                    { 8, "Sleep Problems" },
+                    { 10, "Repetative Thoughts and Behaviors" },
+                    { 6, "Suicidal Ideation" },
+                    { 5, "Somatic Symptoms" },
+                    { 4, "Anxiety" },
+                    { 3, "Mania" },
+                    { 2, "Anger" },
+                    { 7, "Psychosis" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Tests",
-                columns: new[] { "TestID", "Title" },
+                columns: new[] { "TestId", "Title" },
                 values: new object[] { 1, "Level 1 Cross-Cutting Symptom Measure—Adult" });
 
             migrationBuilder.InsertData(
+                table: "UserResponse",
+                columns: new[] { "UserResponseId", "Rating" },
+                values: new object[,]
+                {
+                    { 4, "More than half the days" },
+                    { 1, "Not at all" },
+                    { 2, "Rare, less than a couple days" },
+                    { 3, "Several days" },
+                    { 5, "Nearly every day" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "QuestionID", "QuestionDesc", "QuestionTypeId", "TestId" },
+                columns: new[] { "QuestionId", "QuestionDesc", "QuestionTypeId", "TestId" },
                 values: new object[,]
                 {
                     { 1, "1. Little interest or pleasure in doing things?", 1, 1 },
@@ -406,9 +418,9 @@ namespace MentalSelf.Migrations
                 column: "UserTestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTests_TestID",
+                name: "IX_UserTests_TestId",
                 table: "UserTests",
-                column: "TestID");
+                column: "TestId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

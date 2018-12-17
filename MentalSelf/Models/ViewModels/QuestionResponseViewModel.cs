@@ -7,11 +7,13 @@ namespace MentalSelf.Models.ViewModels
 {
     public class QuestionResponseViewModel
     {
+    public UserTest UserTest { get; set; } = new UserTest { };
     public List<Question> Questions { get; set; }
     public List<Response> Responses { get; set; }
     public List<UserResponse> UserResponses { get; set; }
 
-        public QuestionResponseViewModel() {
+        public QuestionResponseViewModel()
+        {
             UserResponses = new List<UserResponse> {
             new UserResponse {
                 UserResponseId = 1,
@@ -28,11 +30,12 @@ namespace MentalSelf.Models.ViewModels
             new UserResponse {
                 UserResponseId = 4,
                 Rating = "More than half the days"
-            },new UserResponse {
+            },
+            new UserResponse {
                 UserResponseId = 5,
                 Rating = "Nearly every day"
             },
-        };
+            };
         }
     }
 }

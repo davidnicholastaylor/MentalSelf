@@ -9,7 +9,7 @@ namespace MentalSelf.Models
     public class QuestionType
     {
         [Key]
-        public int QuestionTypeID { get; set; }
+        public int QuestionTypeId { get; set; }
 
         [Required]
         public string Type { get; set; }

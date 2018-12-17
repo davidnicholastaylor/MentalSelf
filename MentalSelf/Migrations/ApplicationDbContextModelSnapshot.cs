@@ -21,7 +21,7 @@ namespace MentalSelf.Migrations
 
             modelBuilder.Entity("MentalSelf.Models.Question", b =>
                 {
-                    b.Property<int>("QuestionID")
+                    b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -32,7 +32,7 @@ namespace MentalSelf.Migrations
 
                     b.Property<int>("TestId");
 
-                    b.HasKey("QuestionID");
+                    b.HasKey("QuestionId");
 
                     b.HasIndex("QuestionTypeId");
 
@@ -41,65 +41,65 @@ namespace MentalSelf.Migrations
                     b.ToTable("Questions");
 
                     b.HasData(
-                        new { QuestionID = 1, QuestionDesc = "1. Little interest or pleasure in doing things?", QuestionTypeId = 1, TestId = 1 },
-                        new { QuestionID = 2, QuestionDesc = "2. Feeling down, depressed, or hopeless?", QuestionTypeId = 1, TestId = 1 },
-                        new { QuestionID = 3, QuestionDesc = "3. Feeling more irritated, grouchy, or angry than usual?", QuestionTypeId = 2, TestId = 1 },
-                        new { QuestionID = 4, QuestionDesc = "4. Sleeping less than usual, but still have a lot of energy?", QuestionTypeId = 3, TestId = 1 },
-                        new { QuestionID = 5, QuestionDesc = "5. Starting lots more projects than usual or doing more risky things than usual?", QuestionTypeId = 3, TestId = 1 },
-                        new { QuestionID = 6, QuestionDesc = "6. Feeling nervous, anxious, frightened, worried, or on edge?", QuestionTypeId = 4, TestId = 1 },
-                        new { QuestionID = 7, QuestionDesc = "7. Feeling panic or being frightened?", QuestionTypeId = 4, TestId = 1 },
-                        new { QuestionID = 8, QuestionDesc = "8. Avoiding situations that make you anxious?", QuestionTypeId = 4, TestId = 1 },
-                        new { QuestionID = 9, QuestionDesc = "9. Unexplained aches and pains (e.g., head, back, joints, abdomen, legs)?", QuestionTypeId = 5, TestId = 1 },
-                        new { QuestionID = 10, QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough??", QuestionTypeId = 5, TestId = 1 },
-                        new { QuestionID = 11, QuestionDesc = "11. Thoughts of actually hurting yourself?", QuestionTypeId = 6, TestId = 1 },
-                        new { QuestionID = 12, QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?", QuestionTypeId = 7, TestId = 1 },
-                        new { QuestionID = 13, QuestionDesc = "13. Feeling that someone could hear your thoughts, or that you could hear what another person was thinking?", QuestionTypeId = 7, TestId = 1 },
-                        new { QuestionID = 14, QuestionDesc = "14. Problems with sleep that affected your sleep quality over all?", QuestionTypeId = 8, TestId = 1 },
-                        new { QuestionID = 15, QuestionDesc = "15. Problems with memory (e.g., learning new information) or with location (e.g., finding your way home)? ", QuestionTypeId = 9, TestId = 1 },
-                        new { QuestionID = 16, QuestionDesc = "16. Unpleasant thoughts, urges, or images that repeatedly enter your mind?", QuestionTypeId = 10, TestId = 1 },
-                        new { QuestionID = 17, QuestionDesc = "17. Feeling driven to perform certain behaviors or mental acts over and over again?", QuestionTypeId = 10, TestId = 1 },
-                        new { QuestionID = 18, QuestionDesc = "18. Feeling detached or distant from yourself, your body, your physical surroundings, or your memories?", QuestionTypeId = 11, TestId = 1 },
-                        new { QuestionID = 19, QuestionDesc = "19. Not knowing who you really are or what you want out of life?", QuestionTypeId = 12, TestId = 1 },
-                        new { QuestionID = 20, QuestionDesc = "20. Not feeling close to other people or enjoying your relationships with them?", QuestionTypeId = 12, TestId = 1 },
-                        new { QuestionID = 21, QuestionDesc = "21. Drinking at least 4 drinks of any kind of alcohol in a single day?", QuestionTypeId = 13, TestId = 1 },
-                        new { QuestionID = 22, QuestionDesc = "22. Smoking any cigarettes, a cigar, or pipe, or using snuff or chewing tobacco?", QuestionTypeId = 13, TestId = 1 },
-                        new { QuestionID = 23, QuestionDesc = "23. Using any of the following medicines ON YOUR OWN, that is, without a doctor’s prescription, in greater amounts or longer than prescribed [e.g., painkillers (like Vicodin), stimulants (like Ritalin or Adderall), sedatives or tranquilizers (like sleeping pills or Valium), or drugs like marijuana, cocaine or crack, club drugs (like ecstasy), hallucinogens (like LSD), heroin, inhalants or solvents (like glue), or methamphetamine (like speed)]?", QuestionTypeId = 13, TestId = 1 }
+                        new { QuestionId = 1, QuestionDesc = "1. Little interest or pleasure in doing things?", QuestionTypeId = 1, TestId = 1 },
+                        new { QuestionId = 2, QuestionDesc = "2. Feeling down, depressed, or hopeless?", QuestionTypeId = 1, TestId = 1 },
+                        new { QuestionId = 3, QuestionDesc = "3. Feeling more irritated, grouchy, or angry than usual?", QuestionTypeId = 2, TestId = 1 },
+                        new { QuestionId = 4, QuestionDesc = "4. Sleeping less than usual, but still have a lot of energy?", QuestionTypeId = 3, TestId = 1 },
+                        new { QuestionId = 5, QuestionDesc = "5. Starting lots more projects than usual or doing more risky things than usual?", QuestionTypeId = 3, TestId = 1 },
+                        new { QuestionId = 6, QuestionDesc = "6. Feeling nervous, anxious, frightened, worried, or on edge?", QuestionTypeId = 4, TestId = 1 },
+                        new { QuestionId = 7, QuestionDesc = "7. Feeling panic or being frightened?", QuestionTypeId = 4, TestId = 1 },
+                        new { QuestionId = 8, QuestionDesc = "8. Avoiding situations that make you anxious?", QuestionTypeId = 4, TestId = 1 },
+                        new { QuestionId = 9, QuestionDesc = "9. Unexplained aches and pains (e.g., head, back, joints, abdomen, legs)?", QuestionTypeId = 5, TestId = 1 },
+                        new { QuestionId = 10, QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough??", QuestionTypeId = 5, TestId = 1 },
+                        new { QuestionId = 11, QuestionDesc = "11. Thoughts of actually hurting yourself?", QuestionTypeId = 6, TestId = 1 },
+                        new { QuestionId = 12, QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?", QuestionTypeId = 7, TestId = 1 },
+                        new { QuestionId = 13, QuestionDesc = "13. Feeling that someone could hear your thoughts, or that you could hear what another person was thinking?", QuestionTypeId = 7, TestId = 1 },
+                        new { QuestionId = 14, QuestionDesc = "14. Problems with sleep that affected your sleep quality over all?", QuestionTypeId = 8, TestId = 1 },
+                        new { QuestionId = 15, QuestionDesc = "15. Problems with memory (e.g., learning new information) or with location (e.g., finding your way home)? ", QuestionTypeId = 9, TestId = 1 },
+                        new { QuestionId = 16, QuestionDesc = "16. Unpleasant thoughts, urges, or images that repeatedly enter your mind?", QuestionTypeId = 10, TestId = 1 },
+                        new { QuestionId = 17, QuestionDesc = "17. Feeling driven to perform certain behaviors or mental acts over and over again?", QuestionTypeId = 10, TestId = 1 },
+                        new { QuestionId = 18, QuestionDesc = "18. Feeling detached or distant from yourself, your body, your physical surroundings, or your memories?", QuestionTypeId = 11, TestId = 1 },
+                        new { QuestionId = 19, QuestionDesc = "19. Not knowing who you really are or what you want out of life?", QuestionTypeId = 12, TestId = 1 },
+                        new { QuestionId = 20, QuestionDesc = "20. Not feeling close to other people or enjoying your relationships with them?", QuestionTypeId = 12, TestId = 1 },
+                        new { QuestionId = 21, QuestionDesc = "21. Drinking at least 4 drinks of any kind of alcohol in a single day?", QuestionTypeId = 13, TestId = 1 },
+                        new { QuestionId = 22, QuestionDesc = "22. Smoking any cigarettes, a cigar, or pipe, or using snuff or chewing tobacco?", QuestionTypeId = 13, TestId = 1 },
+                        new { QuestionId = 23, QuestionDesc = "23. Using any of the following medicines ON YOUR OWN, that is, without a doctor’s prescription, in greater amounts or longer than prescribed [e.g., painkillers (like Vicodin), stimulants (like Ritalin or Adderall), sedatives or tranquilizers (like sleeping pills or Valium), or drugs like marijuana, cocaine or crack, club drugs (like ecstasy), hallucinogens (like LSD), heroin, inhalants or solvents (like glue), or methamphetamine (like speed)]?", QuestionTypeId = 13, TestId = 1 }
                     );
                 });
 
             modelBuilder.Entity("MentalSelf.Models.QuestionType", b =>
                 {
-                    b.Property<int>("QuestionTypeID")
+                    b.Property<int>("QuestionTypeId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Type")
                         .IsRequired();
 
-                    b.HasKey("QuestionTypeID");
+                    b.HasKey("QuestionTypeId");
 
                     b.ToTable("QuestionTypes");
 
                     b.HasData(
-                        new { QuestionTypeID = 1, Type = "Depression" },
-                        new { QuestionTypeID = 2, Type = "Anger" },
-                        new { QuestionTypeID = 3, Type = "Mania" },
-                        new { QuestionTypeID = 4, Type = "Anxiety" },
-                        new { QuestionTypeID = 5, Type = "Somatic Symptoms" },
-                        new { QuestionTypeID = 6, Type = "Suicidal Ideation" },
-                        new { QuestionTypeID = 7, Type = "Psychosis" },
-                        new { QuestionTypeID = 8, Type = "Sleep Problems" },
-                        new { QuestionTypeID = 9, Type = "Memory" },
-                        new { QuestionTypeID = 10, Type = "Repetative Thoughts and Behaviors" },
-                        new { QuestionTypeID = 11, Type = "Dissociation" },
-                        new { QuestionTypeID = 12, Type = "Personality Functioning" },
-                        new { QuestionTypeID = 13, Type = "Substance Use" }
+                        new { QuestionTypeId = 1, Type = "Depression" },
+                        new { QuestionTypeId = 2, Type = "Anger" },
+                        new { QuestionTypeId = 3, Type = "Mania" },
+                        new { QuestionTypeId = 4, Type = "Anxiety" },
+                        new { QuestionTypeId = 5, Type = "Somatic Symptoms" },
+                        new { QuestionTypeId = 6, Type = "Suicidal Ideation" },
+                        new { QuestionTypeId = 7, Type = "Psychosis" },
+                        new { QuestionTypeId = 8, Type = "Sleep Problems" },
+                        new { QuestionTypeId = 9, Type = "Memory" },
+                        new { QuestionTypeId = 10, Type = "Repetative Thoughts and Behaviors" },
+                        new { QuestionTypeId = 11, Type = "Dissociation" },
+                        new { QuestionTypeId = 12, Type = "Personality Functioning" },
+                        new { QuestionTypeId = 13, Type = "Substance Use" }
                     );
                 });
 
             modelBuilder.Entity("MentalSelf.Models.Response", b =>
                 {
-                    b.Property<int>("ResponseID")
+                    b.Property<int>("ResponseId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -112,7 +112,7 @@ namespace MentalSelf.Migrations
 
                     b.Property<int>("UserTestId");
 
-                    b.HasKey("ResponseID");
+                    b.HasKey("ResponseId");
 
                     b.HasIndex("QuestionId");
 
@@ -127,19 +127,19 @@ namespace MentalSelf.Migrations
 
             modelBuilder.Entity("MentalSelf.Models.Test", b =>
                 {
-                    b.Property<int>("TestID")
+                    b.Property<int>("TestId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Title")
                         .IsRequired();
 
-                    b.HasKey("TestID");
+                    b.HasKey("TestId");
 
                     b.ToTable("Tests");
 
                     b.HasData(
-                        new { TestID = 1, Title = "Level 1 Cross-Cutting Symptom Measure—Adult" }
+                        new { TestId = 1, Title = "Level 1 Cross-Cutting Symptom Measure—Adult" }
                     );
                 });
 
@@ -154,11 +154,19 @@ namespace MentalSelf.Migrations
                     b.HasKey("UserResponseId");
 
                     b.ToTable("UserResponse");
+
+                    b.HasData(
+                        new { UserResponseId = 1, Rating = "Not at all" },
+                        new { UserResponseId = 2, Rating = "Rare, less than a couple days" },
+                        new { UserResponseId = 3, Rating = "Several days" },
+                        new { UserResponseId = 4, Rating = "More than half the days" },
+                        new { UserResponseId = 5, Rating = "Nearly every day" }
+                    );
                 });
 
             modelBuilder.Entity("MentalSelf.Models.UserTest", b =>
                 {
-                    b.Property<int>("UserTestID")
+                    b.Property<int>("UserTestId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -166,11 +174,11 @@ namespace MentalSelf.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("TestID");
+                    b.Property<int>("TestId");
 
-                    b.HasKey("UserTestID");
+                    b.HasKey("UserTestId");
 
-                    b.HasIndex("TestID");
+                    b.HasIndex("TestId");
 
                     b.ToTable("UserTests");
                 });
@@ -397,7 +405,7 @@ namespace MentalSelf.Migrations
                 {
                     b.HasOne("MentalSelf.Models.Test", "Test")
                         .WithMany()
-                        .HasForeignKey("TestID")
+                        .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -9,7 +9,7 @@ namespace MentalSelf.Models
     public class Response
     {
         [Key]
-        public int ResponseID { get; set; }
+        public int ResponseId { get; set; }
 
         [Required]
         public int QuestionId { get; set; }

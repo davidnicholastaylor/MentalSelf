@@ -10,10 +10,10 @@ namespace MentalSelf.Models
     public class UserTest
     {
         [Key]
-        public int UserTestID { get; set; }
+        public int UserTestId { get; set; }
 
         [Required]
-        public int TestID { get; set; }
+        public int TestId { get; set; }
 
         public Test Test { get; set; }
 

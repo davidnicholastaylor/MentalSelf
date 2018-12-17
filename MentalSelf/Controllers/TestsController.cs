@@ -48,7 +48,7 @@ namespace MentalSelf.Controllers
             }
 
             var test = await _context.Tests
-                .FirstOrDefaultAsync(m => m.TestID == id);
+                .FirstOrDefaultAsync(m => m.TestId == id);
             if (test == null)
             {
                 return NotFound();
@@ -73,8 +73,8 @@ namespace MentalSelf.Controllers
         // GET: Tests/Create
         public async Task<IActionResult> Create(int Id)
         {
-            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestID == Id);
-            List<Question> questions = await _context.Questions.Where(q => q.TestId == test.TestID).ToListAsync();
+            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestId == Id);
+            List<Question> questions = await _context.Questions.Where(q => q.TestId == test.TestId).ToListAsync();
 
             QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
             viewModel.Questions = questions;
@@ -87,21 +87,32 @@ namespace MentalSelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(QuestionResponseViewModel questionAnswer)
+        public async Task<IActionResult> Create(QuestionResponseViewModel questionAnswer, int Id)
         {
             for (var i = 0; i < questionAnswer.Responses.Count; i++) {
                 ModelState.Remove($"Responses[{i}].User");
                 ModelState.Remove($"Responses[{i}].UserId");
             }
+
+            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestId == Id);
+
+            var NewUserTest = new UserTest()
+            {
+                TestId = test.TestId
+            };
+
+            _context.Add(NewUserTest);
+
             if (ModelState.IsValid)
             {
                 for (var i = 0; i < questionAnswer.Responses.Count; i++)
                 {
+                    questionAnswer.Responses[i].UserTest = NewUserTest;
                     questionAnswer.Responses[i].User = await GetCurrentUserAsync();
                     _context.Add(questionAnswer.Responses[i]);
                 }
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Details), new { id = questionAnswer.UserTest.UserTestId.ToString()});
             }
 
             return View(questionAnswer);
@@ -130,7 +141,7 @@ namespace MentalSelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TestID,Title")] Test test)
         {
-            if (id != test.TestID)
+            if (id != test.TestId)
             {
                 return NotFound();
             }
@@ -144,7 +155,7 @@ namespace MentalSelf.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TestExists(test.TestID))
+                    if (!TestExists(test.TestId))
                     {
                         return NotFound();
                     }
@@ -167,7 +178,7 @@ namespace MentalSelf.Controllers
             }
 
             var test = await _context.Tests
-                .FirstOrDefaultAsync(m => m.TestID == id);
+                .FirstOrDefaultAsync(m => m.TestId == id);
             if (test == null)
             {
                 return NotFound();
@@ -189,7 +200,7 @@ namespace MentalSelf.Controllers
 
         private bool TestExists(int id)
         {
-            return _context.Tests.Any(e => e.TestID == id);
+            return _context.Tests.Any(e => e.TestId == id);
         }
     }
 }
