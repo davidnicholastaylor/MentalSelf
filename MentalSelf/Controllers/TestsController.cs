@@ -10,6 +10,7 @@ using MentalSelf.Models;
 using MentalSelf.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace MentalSelf.Controllers
 {
@@ -17,9 +18,13 @@ namespace MentalSelf.Controllers
     public class TestsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        public TestsController(ApplicationDbContext context)
+
+        public TestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -82,8 +87,23 @@ namespace MentalSelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(QuestionResponseViewModel questionAnswer)
+        public async Task<IActionResult> Create(QuestionResponseViewModel questionAnswer)
         {
+            for (var i = 0; i < questionAnswer.Responses.Count; i++) {
+                ModelState.Remove($"Responses[{i}].User");
+                ModelState.Remove($"Responses[{i}].UserId");
+            }
+            if (ModelState.IsValid)
+            {
+                for (var i = 0; i < questionAnswer.Responses.Count; i++)
+                {
+                    questionAnswer.Responses[i].User = await GetCurrentUserAsync();
+                    _context.Add(questionAnswer.Responses[i]);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details));
+            }
+
             return View(questionAnswer);
         }
 
