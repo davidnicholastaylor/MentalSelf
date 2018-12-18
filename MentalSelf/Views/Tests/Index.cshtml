@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MentalSelf.Models.Test>
+﻿@model IEnumerable<MentalSelf.Models.UserTest>
 
 @{
     ViewData["Title"] = "Previous Test Results";
@@ -15,10 +15,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.DateTaken)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.TestId">Details</a> |
+                    @Html.DisplayFor(modelItem => item.Test.Title)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.UserTestId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.TestId">Delete</a>
                 </td>
             </tr>

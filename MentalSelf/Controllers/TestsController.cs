@@ -36,20 +36,20 @@ namespace MentalSelf.Controllers
         // GET: Tests
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tests.ToListAsync());
+            return View(await _context.UserTests.ToListAsync());
         }
 
         // GET: Tests/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
-            var test = await _context.Tests
-                .FirstOrDefaultAsync(m => m.TestId == id);
-            if (test == null)
+            var UserTestDisplay = await _context.UserTests
+                .FirstOrDefaultAsync(m => m.UserTestId == Id);
+            if (UserTestDisplay == null)
             {
                 return NotFound();
             }
@@ -67,7 +67,10 @@ namespace MentalSelf.Controllers
 
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
-            return View(test);
+            TestDetailsViewModel TestDetails = new TestDetailsViewModel();
+            TestDetails.UserTest = UserTestDisplay;
+
+            return View(TestDetails);
         }
 
         // GET: Tests/Create
@@ -112,7 +115,7 @@ namespace MentalSelf.Controllers
                     _context.Add(questionAnswer.Responses[i]);
                 }
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details), new { id = questionAnswer.UserTest.UserTestId.ToString()});
+                return RedirectToAction(nameof(Details), new { id = NewUserTest.UserTestId});
             }
 
             return View(questionAnswer);
