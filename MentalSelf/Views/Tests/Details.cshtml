@@ -1,5 +1,7 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
+<h2>@Html.DisplayNameFor(model => model.UserTest.Test.Title) </h2>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -29,6 +31,23 @@ chart.render();
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 </body>
 </html>
-<div>
-    <a asp-action="Index">Previous Tests</a>
+
+<table class="table">
+    <tbody>
+        <tr>
+            @foreach (var item in Model.Responses)
+            { 
+            <td>
+                @item.Question.QuestionType.Type
+            </td>    
+            <td>
+                @item.UserResponse.Rating
+            </td>
+            }
+        </tr>
+    </tbody>
+</table>
+
+<div style="text-align: center">
+    <input asp-action="Index" value="Previous Tests"class="btn-default" />
 </div>

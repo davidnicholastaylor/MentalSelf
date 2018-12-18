@@ -12,6 +12,7 @@ namespace MentalSelf.Models.ViewModels
     public class TestDetailsViewModel
     {
         public UserTest UserTest { get; set; }
+        public List<Response> Responses { get; set; }
     }
 
     [DataContract]
