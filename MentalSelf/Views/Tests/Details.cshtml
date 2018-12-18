@@ -1,8 +1,8 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
-<h2>@Html.DisplayNameFor(model => model.UserTest.Test.Title) </h2>
+<h2>@Html.DisplayFor(model => model.UserTest.Test.Title) </h2>
 
-<!DOCTYPE HTML>
+@*<!DOCTYPE HTML>
 <html>
 <head>
     <script>
@@ -30,20 +30,26 @@ chart.render();
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 </body>
-</html>
+</html>*@
 
 <table class="table">
     <tbody>
         <tr>
-            @foreach (var item in Model.Responses)
-            { 
             <td>
-                @item.Question.QuestionType.Type
-            </td>    
-            <td>
-                @item.UserResponse.Rating
+                @for (var i = 0; i < Model.QuestionTypes.Count(); i++)
+                {
+                    <div class="row">
+                        <h2>@Model.QuestionTypes[i].Type</h2>
+                    </div>
+                    foreach (var item in Model.Responses.Where(r => r.Question.QuestionTypeId == Model.QuestionTypes[i].QuestionTypeId))
+                    {
+                    <div class="row">
+                        @item.Question.QuestionDesc | @item.UserResponseId
+                    </div>
+                    }
+
+                }
             </td>
-            }
         </tr>
     </tbody>
 </table>

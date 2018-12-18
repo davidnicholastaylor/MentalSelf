@@ -67,6 +67,36 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
+            // Create instance of a test based on Id passed into create method
+            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestId == UserTestDisplay.TestId);
+            // Create list of questions with value of Questions in database where Question.TestId equals test.TestId
+            List<Question> questions = await _context.Questions.Where(q => q.TestId == test.TestId).ToListAsync();
+
+            List<QuestionType> questionTypes = await _context.QuestionTypes.ToListAsync();
+
+            // Create new instance of TestDetailsViewModel
+            TestDetailsViewModel TestDetails = new TestDetailsViewModel();
+
+            // Pass value of UserTestDisplay into UserTest variable in view model
+            TestDetails.UserTest = UserTestDisplay;
+
+            TestDetails.Questions = questions;
+
+            TestDetails.QuestionTypes = questionTypes;
+
+            List<Response> responses = await _context.Responses.Where(r => r.UserTestId == UserTestDisplay.UserTestId).ToListAsync();
+
+            TestDetails.Responses = responses;
+
+            List<UserResponse> UserResponses = TestDetails.UserResponses;
+
+            for (var i = 0; i < responses.Count; i++)
+            {
+                for (var ur = 0; ur < UserResponses.Count(); ur++) {
+                    TestDetails.UserResponses[ur].UserResponseId = responses[i].UserResponseId;
+                }
+            }
+
             //// Create a new list of datapoints
             //List<DataPoint> dataPoints = new List<DataPoint>();
 
@@ -82,24 +112,6 @@ namespace MentalSelf.Controllers
 
             //// Magic
             //ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-
-            var CurrentUser = await GetCurrentUserAsync();
-
-            Response response = await _context.Responses
-            .Include(r => r.UserId)
-            .Include(r => r.QuestionId)
-            .Include(r => r.UserResponseId)
-            .Include(r => r.UserTestId)
-            .Include(r => r.Question)
-            .ThenInclude(q => q.QuestionTypeId)
-            .FirstOrDefaultAsync(m => m.UserId == CurrentUser.Id.ToString() && m.UserTestId == UserTestDisplay.UserTestId);
-
-
-            // Create new instance of TestDetailsViewModel
-            TestDetailsViewModel TestDetails = new TestDetailsViewModel();
-
-            // Pass value of UserTestDisplay into UserTest variable in view model
-            TestDetails.UserTest = UserTestDisplay;
 
             return View(TestDetails);
         }
