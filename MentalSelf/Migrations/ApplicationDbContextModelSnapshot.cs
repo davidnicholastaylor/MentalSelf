@@ -38,7 +38,7 @@ namespace MentalSelf.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Question");
 
                     b.HasData(
                         new { QuestionId = 1, QuestionDesc = "1. Little interest or pleasure in doing things?", QuestionTypeId = 1, TestId = 1 },
@@ -50,7 +50,7 @@ namespace MentalSelf.Migrations
                         new { QuestionId = 7, QuestionDesc = "7. Feeling panic or being frightened?", QuestionTypeId = 4, TestId = 1 },
                         new { QuestionId = 8, QuestionDesc = "8. Avoiding situations that make you anxious?", QuestionTypeId = 4, TestId = 1 },
                         new { QuestionId = 9, QuestionDesc = "9. Unexplained aches and pains (e.g., head, back, joints, abdomen, legs)?", QuestionTypeId = 5, TestId = 1 },
-                        new { QuestionId = 10, QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough??", QuestionTypeId = 5, TestId = 1 },
+                        new { QuestionId = 10, QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough?", QuestionTypeId = 5, TestId = 1 },
                         new { QuestionId = 11, QuestionDesc = "11. Thoughts of actually hurting yourself?", QuestionTypeId = 6, TestId = 1 },
                         new { QuestionId = 12, QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?", QuestionTypeId = 7, TestId = 1 },
                         new { QuestionId = 13, QuestionDesc = "13. Feeling that someone could hear your thoughts, or that you could hear what another person was thinking?", QuestionTypeId = 7, TestId = 1 },
@@ -78,7 +78,7 @@ namespace MentalSelf.Migrations
 
                     b.HasKey("QuestionTypeId");
 
-                    b.ToTable("QuestionTypes");
+                    b.ToTable("QuestionType");
 
                     b.HasData(
                         new { QuestionTypeId = 1, Type = "Depression" },
@@ -122,7 +122,7 @@ namespace MentalSelf.Migrations
 
                     b.HasIndex("UserTestId");
 
-                    b.ToTable("Responses");
+                    b.ToTable("Response");
                 });
 
             modelBuilder.Entity("MentalSelf.Models.Test", b =>
@@ -136,7 +136,7 @@ namespace MentalSelf.Migrations
 
                     b.HasKey("TestId");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Test");
 
                     b.HasData(
                         new { TestId = 1, Title = "Level 1 Cross-Cutting Symptom Measure—Adult" }
@@ -180,7 +180,7 @@ namespace MentalSelf.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("UserTests");
+                    b.ToTable("UserTest");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

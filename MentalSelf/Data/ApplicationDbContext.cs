@@ -13,12 +13,13 @@ namespace MentalSelf.Data
             : base(options)
         {
         }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<QuestionType> QuestionTypes { get; set; }
-        public DbSet<Response> Responses { get; set; }
-        public DbSet<Test> Tests { get; set; }
-        public DbSet<UserTest> UserTests { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<QuestionType> QuestionType { get; set; }
+        public DbSet<Response> Response { get; set; }
+        public DbSet<Test> Test { get; set; }
+        public DbSet<UserTest> UserTest { get; set; }
+        public DbSet<UserResponse> UserResponse { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
@@ -210,7 +211,7 @@ namespace MentalSelf.Data
             new Question()
             {
                 QuestionId = 10,
-                QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough??",
+                QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough?",
                 QuestionTypeId = 5,
                 TestId = 1
             },

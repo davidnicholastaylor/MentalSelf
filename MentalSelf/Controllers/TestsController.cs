@@ -36,14 +36,14 @@ namespace MentalSelf.Controllers
         public async Task<IActionResult> TestList()
         {
             // Return list of Tests from database to the view
-            return View(await _context.Tests.ToListAsync());
+            return View(await _context.Test.ToListAsync());
         }
 
         // GET: Tests
         public async Task<IActionResult> Index()
         {
             // Return list of UserTests from database to the view
-            return View(await _context.UserTests.ToListAsync());
+            return View(await _context.UserTest.ToListAsync());
         }
 
         // GET: Tests/Details/5
@@ -57,7 +57,7 @@ namespace MentalSelf.Controllers
             }
 
             // Create variable for all UserTests in database
-            var UserTestDisplay = await _context.UserTests
+            var UserTestDisplay = await _context.UserTest
             // Select only the UserTests whose Id equals the Id integer passed into the view
                 .FirstOrDefaultAsync(m => m.UserTestId == Id);
 
@@ -67,12 +67,14 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
-            // Create instance of a test based on Id passed into create method
-            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestId == UserTestDisplay.TestId);
-            // Create list of questions with value of Questions in database where Question.TestId equals test.TestId
-            List<Question> questions = await _context.Questions.Where(q => q.TestId == test.TestId).ToListAsync();
+            // Create instance of a test with value of Test from database based on Id passed into create method
+            Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == UserTestDisplay.TestId);
 
-            List<QuestionType> questionTypes = await _context.QuestionTypes.ToListAsync();
+            // Create list of questions with value of Question in database where Question.TestId equals test.TestId
+            List<Question> Questions = await _context.Question.Where(q => q.TestId == test.TestId).ToListAsync();
+
+            // Create a list of QuestionTypes with value of QuestionType in database
+            List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
 
             // Create new instance of TestDetailsViewModel
             TestDetailsViewModel TestDetails = new TestDetailsViewModel();
@@ -80,20 +82,35 @@ namespace MentalSelf.Controllers
             // Pass value of UserTestDisplay into UserTest variable in view model
             TestDetails.UserTest = UserTestDisplay;
 
-            TestDetails.Questions = questions;
+            TestDetails.Questions = Questions;
 
-            TestDetails.QuestionTypes = questionTypes;
+            TestDetails.QuestionTypes = QuestionTypes;
 
-            List<Response> responses = await _context.Responses.Where(r => r.UserTestId == UserTestDisplay.UserTestId).ToListAsync();
+            List<Response> responses = await _context.Response
+            .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
+            .ToListAsync();
 
             TestDetails.Responses = responses;
 
-            List<UserResponse> UserResponses = TestDetails.UserResponses;
+            // Create a list of UserResponses with value of UserResponse in database
+            List<UserResponse> UserResponses = await _context.UserResponse
+            .ToListAsync();
+
+            foreach (var r in  responses) 
+            {
+                foreach (var ur in UserResponses) 
+                {
+                    
+                }
+            }
+
+            TestDetails.UserResponses = UserResponses;
 
             for (var i = 0; i < responses.Count; i++)
             {
                 for (var ur = 0; ur < UserResponses.Count(); ur++) {
                     TestDetails.UserResponses[ur].UserResponseId = responses[i].UserResponseId;
+                    responses[i].UserResponse.Rating = TestDetails.UserResponses[ur].Rating;
                 }
             }
 
@@ -120,9 +137,9 @@ namespace MentalSelf.Controllers
         public async Task<IActionResult> Create(int Id)
         {
             // Create instance of a test based on Id passed into create method
-            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestId == Id);
+            Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == Id);
             // Create list of questions with value of Questions in database where Question.TestId equals test.TestId
-            List<Question> questions = await _context.Questions.Where(q => q.TestId == test.TestId).ToListAsync();
+            List<Question> questions = await _context.Question.Where(q => q.TestId == test.TestId).ToListAsync();
 
             // Create instance of QuestionResponseViewModel
             QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
@@ -149,7 +166,7 @@ namespace MentalSelf.Controllers
             }
 
             // Create instance of a test based on Id passed into create method
-            Test test = await _context.Tests.FirstOrDefaultAsync(t => t.TestId == Id);
+            Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == Id);
 
             // Create new instance of a UserTest called NewUserTest 
             var NewUserTest = new UserTest()
@@ -192,7 +209,7 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
-            var test = await _context.Tests.FindAsync(id);
+            var test = await _context.Test.FindAsync(id);
             if (test == null)
             {
                 return NotFound();
@@ -243,7 +260,7 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
-            var test = await _context.Tests
+            var test = await _context.Test
                 .FirstOrDefaultAsync(m => m.TestId == id);
             if (test == null)
             {
@@ -258,15 +275,15 @@ namespace MentalSelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var test = await _context.Tests.FindAsync(id);
-            _context.Tests.Remove(test);
+            var test = await _context.Test.FindAsync(id);
+            _context.Test.Remove(test);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TestExists(int id)
         {
-            return _context.Tests.Any(e => e.TestId == id);
+            return _context.Test.Any(e => e.TestId == id);
         }
     }
 }

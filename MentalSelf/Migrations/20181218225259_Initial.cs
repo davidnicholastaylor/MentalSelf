@@ -50,7 +50,7 @@ namespace MentalSelf.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuestionTypes",
+                name: "QuestionType",
                 columns: table => new
                 {
                     QuestionTypeId = table.Column<int>(nullable: false)
@@ -59,11 +59,11 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuestionTypes", x => x.QuestionTypeId);
+                    table.PrimaryKey("PK_QuestionType", x => x.QuestionTypeId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tests",
+                name: "Test",
                 columns: table => new
                 {
                     TestId = table.Column<int>(nullable: false)
@@ -72,7 +72,7 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tests", x => x.TestId);
+                    table.PrimaryKey("PK_Test", x => x.TestId);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,7 +195,7 @@ namespace MentalSelf.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Questions",
+                name: "Question",
                 columns: table => new
                 {
                     QuestionId = table.Column<int>(nullable: false)
@@ -206,23 +206,23 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.QuestionId);
+                    table.PrimaryKey("PK_Question", x => x.QuestionId);
                     table.ForeignKey(
-                        name: "FK_Questions_QuestionTypes_QuestionTypeId",
+                        name: "FK_Question_QuestionType_QuestionTypeId",
                         column: x => x.QuestionTypeId,
-                        principalTable: "QuestionTypes",
+                        principalTable: "QuestionType",
                         principalColumn: "QuestionTypeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Questions_Tests_TestId",
+                        name: "FK_Question_Test_TestId",
                         column: x => x.TestId,
-                        principalTable: "Tests",
+                        principalTable: "Test",
                         principalColumn: "TestId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTests",
+                name: "UserTest",
                 columns: table => new
                 {
                     UserTestId = table.Column<int>(nullable: false)
@@ -232,17 +232,17 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTests", x => x.UserTestId);
+                    table.PrimaryKey("PK_UserTest", x => x.UserTestId);
                     table.ForeignKey(
-                        name: "FK_UserTests_Tests_TestId",
+                        name: "FK_UserTest_Test_TestId",
                         column: x => x.TestId,
-                        principalTable: "Tests",
+                        principalTable: "Test",
                         principalColumn: "TestId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Responses",
+                name: "Response",
                 columns: table => new
                 {
                     ResponseId = table.Column<int>(nullable: false)
@@ -254,35 +254,35 @@ namespace MentalSelf.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Responses", x => x.ResponseId);
+                    table.PrimaryKey("PK_Response", x => x.ResponseId);
                     table.ForeignKey(
-                        name: "FK_Responses_Questions_QuestionId",
+                        name: "FK_Response_Question_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Questions",
+                        principalTable: "Question",
                         principalColumn: "QuestionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Responses_AspNetUsers_UserId",
+                        name: "FK_Response_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Responses_UserResponse_UserResponseId",
+                        name: "FK_Response_UserResponse_UserResponseId",
                         column: x => x.UserResponseId,
                         principalTable: "UserResponse",
                         principalColumn: "UserResponseId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Responses_UserTests_UserTestId",
+                        name: "FK_Response_UserTest_UserTestId",
                         column: x => x.UserTestId,
-                        principalTable: "UserTests",
+                        principalTable: "UserTest",
                         principalColumn: "UserTestId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "QuestionTypes",
+                table: "QuestionType",
                 columns: new[] { "QuestionTypeId", "Type" },
                 values: new object[,]
                 {
@@ -302,7 +302,7 @@ namespace MentalSelf.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Tests",
+                table: "Test",
                 columns: new[] { "TestId", "Title" },
                 values: new object[] { 1, "Level 1 Cross-Cutting Symptom Measure—Adult" });
 
@@ -319,7 +319,7 @@ namespace MentalSelf.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Questions",
+                table: "Question",
                 columns: new[] { "QuestionId", "QuestionDesc", "QuestionTypeId", "TestId" },
                 values: new object[,]
                 {
@@ -335,7 +335,7 @@ namespace MentalSelf.Migrations
                     { 13, "13. Feeling that someone could hear your thoughts, or that you could hear what another person was thinking?", 7, 1 },
                     { 22, "22. Smoking any cigarettes, a cigar, or pipe, or using snuff or chewing tobacco?", 13, 1 },
                     { 12, "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?", 7, 1 },
-                    { 10, "10. Feeling that your illnesses are not being taken seriously enough??", 5, 1 },
+                    { 10, "10. Feeling that your illnesses are not being taken seriously enough?", 5, 1 },
                     { 9, "9. Unexplained aches and pains (e.g., head, back, joints, abdomen, legs)?", 5, 1 },
                     { 8, "8. Avoiding situations that make you anxious?", 4, 1 },
                     { 7, "7. Feeling panic or being frightened?", 4, 1 },
@@ -388,38 +388,38 @@ namespace MentalSelf.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_QuestionTypeId",
-                table: "Questions",
+                name: "IX_Question_QuestionTypeId",
+                table: "Question",
                 column: "QuestionTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_TestId",
-                table: "Questions",
+                name: "IX_Question_TestId",
+                table: "Question",
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Responses_QuestionId",
-                table: "Responses",
+                name: "IX_Response_QuestionId",
+                table: "Response",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Responses_UserId",
-                table: "Responses",
+                name: "IX_Response_UserId",
+                table: "Response",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Responses_UserResponseId",
-                table: "Responses",
+                name: "IX_Response_UserResponseId",
+                table: "Response",
                 column: "UserResponseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Responses_UserTestId",
-                table: "Responses",
+                name: "IX_Response_UserTestId",
+                table: "Response",
                 column: "UserTestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTests_TestId",
-                table: "UserTests",
+                name: "IX_UserTest_TestId",
+                table: "UserTest",
                 column: "TestId");
         }
 
@@ -441,13 +441,13 @@ namespace MentalSelf.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Responses");
+                name: "Response");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
@@ -456,13 +456,13 @@ namespace MentalSelf.Migrations
                 name: "UserResponse");
 
             migrationBuilder.DropTable(
-                name: "UserTests");
+                name: "UserTest");
 
             migrationBuilder.DropTable(
-                name: "QuestionTypes");
+                name: "QuestionType");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "Test");
         }
     }
 }

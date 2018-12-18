@@ -44,7 +44,7 @@ chart.render();
                     foreach (var item in Model.Responses.Where(r => r.Question.QuestionTypeId == Model.QuestionTypes[i].QuestionTypeId))
                     {
                     <div class="row">
-                        @item.Question.QuestionDesc | @item.UserResponseId
+                        @item.Question.QuestionDesc | @item.UserResponse.Rating
                     </div>
                     }
 
@@ -55,5 +55,5 @@ chart.render();
 </table>
 
 <div style="text-align: center">
-    <input asp-action="Index" value="Previous Tests"class="btn-default" />
+    <input type="submit" asp-action="Index" value="Previous Tests" class="btn-default" />
 </div>
