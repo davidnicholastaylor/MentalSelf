@@ -9,20 +9,15 @@ using System.Threading.Tasks;
 
 namespace MentalSelf.Models.ViewModels
 {
-    public class TestQuestionViewModel
+    public class TestDetailsViewModel
     {
         public UserTest UserTest { get; set; }
-        
-        public Test Test { get; set; }
-
-        public List<SelectListItem> ResponseList { get; set; }
-
-        public IEnumerable<QuestionResponseViewModel> QuestionResponse { get; set; }        
     }
 
     [DataContract]
     public class DataPoint
-    {
+    {   
+        // Create instance of data points with a string for label and a double for y axis
         public DataPoint(string label, double y)
         {
             this.Label = label;

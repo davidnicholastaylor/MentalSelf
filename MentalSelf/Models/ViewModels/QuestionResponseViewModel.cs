@@ -12,8 +12,10 @@ namespace MentalSelf.Models.ViewModels
     public List<Response> Responses { get; set; }
     public List<UserResponse> UserResponses { get; set; }
 
+    // Create instance of QuestionResponseViewModel
         public QuestionResponseViewModel()
         {
+            // Create new list of User Responses to be used in view
             UserResponses = new List<UserResponse> {
             new UserResponse {
                 UserResponseId = 1,

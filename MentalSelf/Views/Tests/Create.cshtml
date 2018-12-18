@@ -14,22 +14,37 @@
     <tbody>
         <tr>
             <td class="col-md-10">
+                @*Create form *@
                 <form method="post" asp-action="Create" asp-controller="Tests">
+                    @*Validate everything in this div based on the View Model being used*@
                     <div asp-validation-summary="ModelOnly"></div>
+                    @*Store below information into UserTest specified by TestId*@
                     <div asp-for="@Model.UserTest.TestId">
+                        @*Create [i] interator based on number of Questions in Questions List*@
                         @for (var i = 0; i < Model.Questions.Count; i++)
                         {
                             <div class="row">
+                                @*Create hidden input for [i] interated responses containing the QuestionId based on the value of the [i] interated questions containing the QuestionId*@
                                 <input type="hidden" asp-for="@Model.Responses[i].QuestionId" value="@Model.Questions[i].QuestionId" />
+                                @*Display question descriptions based on the [i] iterated questions*@
                                 <h3>@Model.Questions[i].QuestionDesc</h3>
                             </div>
+                            @*Create [r] iterator based on number of UserResponses in UserResponses List*@
                             @for (var r = 0; r < Model.UserResponses.Count; r++)
                             {
                                 <div class="row">
+                                    @*
+                                        Create input for [i] iterated responses containing UseerResponseId
+                                        Give input an id based on both iterators
+                                        Give input value of [r] interated UserResponses containing UserResponseId
+                                        Give input type of radio button
+                                    *@
                                     <input asp-for="@Model.Responses[i].UserResponseId"
                                            id=@($"rating-{i}-{r}")
                                            value="@(Model.UserResponses[r].UserResponseId)"
                                            type="radio" />
+                                    @*Create label for input based on the same input id*@
+                                    @*Display [r] iterated UserResponses containing Rating*@
                                     <label for=@($"rating-{i}-{r}")>
                                         @(Model.UserResponses[r].Rating)
                                     </label>
@@ -39,6 +54,7 @@
                             <br />
                         }
                     </div>
+                    @*Submit button for form*@
                     <div style="text-align: center">
                         <input type="submit" value="Submit" class="btn btn-success btn-lg" />
                     </div>
@@ -48,7 +64,7 @@
     </tbody>
 </table>
 
-
+@*Button to go back to Index*@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
