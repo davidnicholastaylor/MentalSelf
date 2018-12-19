@@ -93,6 +93,7 @@ namespace MentalSelf.Controllers
                 {
                     number += r.UserResponseId;
                 }
+                number = number / totalResponses.Count();
                 rd.NumberOfResponses = number;
                 responseData.Add(rd);
             }

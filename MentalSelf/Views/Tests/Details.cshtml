@@ -1,6 +1,36 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
-
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                <div>
+                    <h3 class="text-center">
+                        Each question is rated on a 1-5 scale.
+                    </h3>
+                </div>
+                <div>
+                    <h4>
+                        <br />1 = Not at all
+                        <br />2 = Rare, less than a couple days
+                        <br />3 = Several days
+                        <br />4 = More than half the days
+                        <br />5 = Nearly every day
+                    </h4>
+                </div>
+                <br/>
+                <div>
+                    <h4>
+                        The graph below represents the aggregate of the ratings for each question. Those aggregate ratings are grouped by the categories for each question.
+                         If you selected "Several Days" on any question, then you may want to seek professional help.
+                        However, if you selected "Rare, less than a couple days" on any question for the categories of substance use, suicidal ideation, and psychosis, then you may want to seek professional help.
+                        Similarly for the chart, if you scored an aggregate of 3 for any category or an aggregate of 2 on substance use, suicidal ideation, or psychosis, then you may want to seek professional help.
+                    </h4>
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
 
 <!DOCTYPE HTML>
 <html>
@@ -10,7 +40,7 @@ window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
-	theme: "light2", // "light1", "dark1", "dark2"
+	theme: "dark2", // "light1", "dark1", "dark2"
 	exportEnabled: true,
 	title: {
 		text: "@Model.UserTest.Test.Title"
@@ -26,7 +56,12 @@ chart.render();
     </script>
 </head>
 <body>
+    <br/>
+    <br/>
+    <br/>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <br/>
+    <br/>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 </body>
@@ -46,7 +81,10 @@ chart.render();
                         if (r.Question.QuestionTypeId == qt.QuestionTypeId)
                         {
                         <div class="row">
-                            @r.Question.QuestionDesc | @r.UserResponse.Rating
+                            <h5>@r.Question.QuestionDesc</h5> <h4 style="text-decoration: underline">@r.UserResponse.Rating</h4>
+                        </div>
+                        <div class="row">
+                            
                         </div>
                         }
                     }
