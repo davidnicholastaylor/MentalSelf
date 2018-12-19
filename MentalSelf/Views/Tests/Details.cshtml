@@ -36,16 +36,19 @@ chart.render();
     <tbody>
         <tr>
             <td>
-                @for (var i = 0; i < Model.QuestionTypes.Count(); i++)
+                @foreach (QuestionType qt in Model.QuestionTypes)
                 {
                     <div class="row">
-                        <h2>@Model.QuestionTypes[i].Type</h2>
+                        <h2>@qt.Type</h2>
                     </div>
-                    foreach (var item in Model.Responses.Where(r => r.Question.QuestionTypeId == Model.QuestionTypes[i].QuestionTypeId))
+                    foreach (var r in Model.Responses)
                     {
-                    <div class="row">
-                        @item.Question.QuestionDesc | @item.UserResponse.Rating
-                    </div>
+                        if (r.Question.QuestionTypeId == qt.QuestionTypeId)
+                        {
+                        <div class="row">
+                            @r.Question.QuestionDesc | @r.UserResponse.Rating
+                        </div>
+                        }
                     }
 
                 }

@@ -67,11 +67,11 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
-            // Create instance of a test with value of Test from database based on Id passed into create method
-            Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == UserTestDisplay.TestId);
-
-            // Create list of questions with value of Question in database where Question.TestId equals test.TestId
-            List<Question> Questions = await _context.Question.Where(q => q.TestId == test.TestId).ToListAsync();
+            List<Response> responses = await _context.Response
+                        .Include(r => r.UserResponse)
+                        .Include(r => r.Question)
+                        .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
+                        .ToListAsync();
 
             // Create a list of QuestionTypes with value of QuestionType in database
             List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
@@ -82,37 +82,9 @@ namespace MentalSelf.Controllers
             // Pass value of UserTestDisplay into UserTest variable in view model
             TestDetails.UserTest = UserTestDisplay;
 
-            TestDetails.Questions = Questions;
-
             TestDetails.QuestionTypes = QuestionTypes;
-
-            List<Response> responses = await _context.Response
-            .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
-            .ToListAsync();
-
+            
             TestDetails.Responses = responses;
-
-            // Create a list of UserResponses with value of UserResponse in database
-            List<UserResponse> UserResponses = await _context.UserResponse
-            .ToListAsync();
-
-            foreach (var r in  responses) 
-            {
-                foreach (var ur in UserResponses) 
-                {
-                    
-                }
-            }
-
-            TestDetails.UserResponses = UserResponses;
-
-            for (var i = 0; i < responses.Count; i++)
-            {
-                for (var ur = 0; ur < UserResponses.Count(); ur++) {
-                    TestDetails.UserResponses[ur].UserResponseId = responses[i].UserResponseId;
-                    responses[i].UserResponse.Rating = TestDetails.UserResponses[ur].Rating;
-                }
-            }
 
             //// Create a new list of datapoints
             //List<DataPoint> dataPoints = new List<DataPoint>();
