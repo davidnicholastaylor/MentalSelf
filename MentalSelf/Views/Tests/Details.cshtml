@@ -1,8 +1,8 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
-<h2>@Html.DisplayFor(model => model.UserTest.Test.Title) </h2>
 
-@*<!DOCTYPE HTML>
+
+<!DOCTYPE HTML>
 <html>
 <head>
     <script>
@@ -13,7 +13,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "dark1", "dark2"
 	exportEnabled: true,
 	title: {
-		text: "Medals Won by Few Countries - 2016 Summer Olympics"
+		text: "@Model.UserTest.Test.Title"
 	},
 	data: [{
 		type: "column",
@@ -30,7 +30,7 @@ chart.render();
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 </body>
-</html>*@
+</html>
 
 <table class="table">
     <tbody>

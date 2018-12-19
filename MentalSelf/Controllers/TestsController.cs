@@ -42,8 +42,12 @@ namespace MentalSelf.Controllers
         // GET: Tests
         public async Task<IActionResult> Index()
         {
+
+            List<UserTest> userTest = await _context.UserTest
+            .Include(ut => ut.Test)
+            .ToListAsync();
             // Return list of UserTests from database to the view
-            return View(await _context.UserTest.ToListAsync());
+            return View(userTest);
         }
 
         // GET: Tests/Details/5
@@ -58,8 +62,9 @@ namespace MentalSelf.Controllers
 
             // Create variable for all UserTests in database
             var UserTestDisplay = await _context.UserTest
+                .Include(ut => ut.Test)
             // Select only the UserTests whose Id equals the Id integer passed into the view
-                .FirstOrDefaultAsync(m => m.UserTestId == Id);
+                .FirstOrDefaultAsync(ut => ut.UserTestId == Id);
 
             // If no UserTests are returned with a UserTestId that equals the Id integer return 404 error
             if (UserTestDisplay == null)
@@ -76,6 +81,22 @@ namespace MentalSelf.Controllers
             // Create a list of QuestionTypes with value of QuestionType in database
             List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
 
+            List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
+
+            foreach (QuestionType qt in QuestionTypes)
+            {
+                ResponseDataViewModel rd = new ResponseDataViewModel();
+                rd.QuestionType = qt.Type;
+                var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
+                int number = new int();
+                foreach (var r in totalResponses)
+                {
+                    number += r.UserResponseId;
+                }
+                rd.NumberOfResponses = number;
+                responseData.Add(rd);
+            }
+
             // Create new instance of TestDetailsViewModel
             TestDetailsViewModel TestDetails = new TestDetailsViewModel();
 
@@ -86,21 +107,18 @@ namespace MentalSelf.Controllers
             
             TestDetails.Responses = responses;
 
-            //// Create a new list of datapoints
-            //List<DataPoint> dataPoints = new List<DataPoint>();
+            TestDetails.ResponseData = responseData;
 
-            //// Add data to list of datapoints
-            //dataPoints.Add(new DataPoint("USA", 121));
-            //dataPoints.Add(new DataPoint("Great Britain", 67));
-            //dataPoints.Add(new DataPoint("China", 70));
-            //dataPoints.Add(new DataPoint("Russia", 56));
-            //dataPoints.Add(new DataPoint("Germany", 42));
-            //dataPoints.Add(new DataPoint("Japan", 41));
-            //dataPoints.Add(new DataPoint("France", 42));
-            //dataPoints.Add(new DataPoint("South Korea", 21));
+            // Create a new list of datapoints
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            foreach(var rd in responseData)
+            {
+                dataPoints.Add(new DataPoint(rd.QuestionType, rd.NumberOfResponses));
+            }
+            // Add data to list of datapoints
 
-            //// Magic
-            //ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            // Magic
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
             return View(TestDetails);
         }
