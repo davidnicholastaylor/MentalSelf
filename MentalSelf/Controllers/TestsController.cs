@@ -42,12 +42,31 @@ namespace MentalSelf.Controllers
         // GET: Tests
         public async Task<IActionResult> Index()
         {
+            // Create a list of QuestionTypes
+            List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
 
-            List<UserTest> userTest = await _context.UserTest
+            // Create a list of UserTests that include the Test Data
+            List<UserTest> userTests = await _context.UserTest
             .Include(ut => ut.Test)
             .ToListAsync();
-            // Return list of UserTests from database to the view
-            return View(userTest);
+
+            
+
+            // Create a list of Responses that inlcude 
+            List<Response> responses = await _context.Response
+                        .Include(r => r.UserResponse)
+                        .Include(r => r.Question)
+                        .Where(r => r.UserTestId == userTest.UserTestId)
+                        .ToListAsync();
+
+            // Create instance of ResponseDataViewModel
+            List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
+
+            // Create instance of IndexChartViewModel
+            IndexChartViewModel viewModel = new IndexChartViewModel();
+            viewModel.UserTest = userTests;
+            
+            return View(viewModel);
         }
 
         // GET: Tests/Details/5
