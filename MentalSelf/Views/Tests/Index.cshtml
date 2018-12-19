@@ -18,8 +18,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	data: [{
 		type: "pie",
 		startAngle: 160,
-		toolTipContent: "<b>{label}</b>: {y}%",
-		indexLabel: "{label} - {y}%",
+		toolTipContent: "<b>{label}</b>: {y}",
+		indexLabel: "{label} - {y}",
 		dataPoints: @Html.Raw(ViewBag.DataPoints)
 	}]
 });
@@ -50,7 +50,7 @@ chart.render();
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.UserTestId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.TestId">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.UserTestId">Delete</a>
                 </td>
             </tr>
         }

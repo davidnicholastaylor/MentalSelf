@@ -276,7 +276,7 @@ namespace MentalSelf.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TestExists(test.TestId))
+                    if (!UserTestExists(test.TestId))
                     {
                         return NotFound();
                     }
@@ -291,37 +291,46 @@ namespace MentalSelf.Controllers
         }
 
         // GET: Tests/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
-            var test = await _context.Test
-                .FirstOrDefaultAsync(m => m.TestId == id);
-            if (test == null)
+            // Create variable for all UserTests in database
+            var UserTestDelete = await _context.UserTest
+                .Include(ut => ut.Test)
+            // Select only the UserTests whose Id equals the Id integer passed into the view
+                .FirstOrDefaultAsync(ut => ut.UserTestId == Id);
+            if (UserTestDelete == null)
             {
                 return NotFound();
             }
 
-            return View(test);
+            return View(UserTestDelete);
         }
 
         // POST: Tests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int Id)
         {
-            var test = await _context.Test.FindAsync(id);
-            _context.Test.Remove(test);
+            var userTest = await _context.UserTest.FindAsync(Id);
+                var responses = await _context.Response
+                .Where(r => r.UserTestId == userTest.UserTestId)
+                .ToListAsync();
+            foreach (Response response in responses){
+                _context.Remove(response);
+            }
+            _context.UserTest.Remove(userTest);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TestExists(int id)
+        private bool UserTestExists(int Id)
         {
-            return _context.Test.Any(e => e.TestId == id);
+            return _context.UserTest.Any(ut => ut.UserTestId == Id);
         }
     }
 }
