@@ -42,6 +42,15 @@ namespace MentalSelf.Controllers
         // GET: Tests
         public async Task<IActionResult> Index()
         {
+
+
+            // Create a list of Responses that include UserResponses, Questions, and UserTestIds
+            List<Response> responses = await _context.Response
+                                    .Include(r => r.UserResponse)
+                                    .Include(r => r.Question)
+                                    .Include(r => r.UserTest)
+                                    .ToListAsync();
+
             // Create a list of QuestionTypes
             List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
 
@@ -50,22 +59,41 @@ namespace MentalSelf.Controllers
             .Include(ut => ut.Test)
             .ToListAsync();
 
-            
-
-            // Create a list of Responses that inlcude 
-            List<Response> responses = await _context.Response
-                        .Include(r => r.UserResponse)
-                        .Include(r => r.Question)
-                        .Where(r => r.UserTestId == userTest.UserTestId)
-                        .ToListAsync();
-
             // Create instance of ResponseDataViewModel
             List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
+
+            foreach (QuestionType qt in QuestionTypes)
+            {
+                ResponseDataViewModel rd = new ResponseDataViewModel();
+                rd.QuestionType = qt.Type;
+                var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
+                int number = new int();
+                foreach (var r in totalResponses)
+                {
+                    number += r.UserResponseId;
+                }
+                number = number / totalResponses.Count();
+                rd.NumberOfResponses = number;
+                responseData.Add(rd);
+            }
+
+            
 
             // Create instance of IndexChartViewModel
             IndexChartViewModel viewModel = new IndexChartViewModel();
             viewModel.UserTest = userTests;
-            
+            viewModel.Responses = responses;
+            viewModel.QuestionTypes = QuestionTypes;
+            viewModel.ResponseData = responseData;
+
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            foreach (var rd in responseData)
+            {
+                dataPoints.Add(new DataPoint(rd.QuestionType, rd.NumberOfResponses));
+            }
+
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
             return View(viewModel);
         }
 

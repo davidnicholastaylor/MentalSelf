@@ -7,6 +7,7 @@ namespace MentalSelf.Models.ViewModels
 {
     public class ResponseDataViewModel
     {
+    public UserTest UserTest { get; set; }
     public string QuestionType { get; set; }
     public int NumberOfResponses { get; set; }
     }

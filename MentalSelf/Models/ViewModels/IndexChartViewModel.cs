@@ -10,7 +10,6 @@ namespace MentalSelf.Models.ViewModels
     {
         public List<UserTest> UserTest { get; set; }
         public List<Response> Responses { get; set; }
-        public List<UserResponse> UserResponses { get; set; }
         public List<QuestionType> QuestionTypes { get; set; }
         public List<ResponseDataViewModel> ResponseData { get; set; }
 
