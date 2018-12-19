@@ -1,6 +1,35 @@
 ﻿@model MentalSelf.Models.ViewModels.IndexChartViewModel
 
 
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                <div>
+                    <h3 class="text-center">
+                        Each question is rated on a 0-4 scale.
+                    </h3>
+                </div>
+                <div>
+                    <h4>
+                        <br />0 = Not at all
+                        <br />1 = Rare, less than a couple days
+                        <br />2 = Several days
+                        <br />3 = More than half the days
+                        <br />4 = Nearly every day
+                    </h4>
+                </div>
+                <br/>
+                <div>
+                    <h4>
+                        The graph below represents the average of the ratings for every time you've taken this test. Those average ratings are grouped by the categories for each question. This graph does not necessarily indicate you need to seek professional help. It is merely a point of reflection to provide greater self-awareness.
+                    </h4>
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+
 <!DOCTYPE HTML>
     <html>
     <head>
@@ -8,11 +37,11 @@
 window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
-	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	theme: "dark2", // "light1", "light2", "dark1", "dark2"
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Previous Test Results",
+		text: "Average of Previous Test Results",
 		fontSize: 21
 	},
 	data: [{
@@ -29,7 +58,11 @@ chart.render();
         </script>
     </head>
     <body>
+        <br/>
+        <br/>
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <br/>
+        <br/>
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     </body>

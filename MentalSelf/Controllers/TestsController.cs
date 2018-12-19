@@ -72,7 +72,7 @@ namespace MentalSelf.Controllers
                 {
                     number += r.UserResponseId;
                 }
-                number = number / totalResponses.Count();
+                number = (number / totalResponses.Count()) - 1;
                 rd.NumberOfResponses = number;
                 responseData.Add(rd);
             }
@@ -140,7 +140,7 @@ namespace MentalSelf.Controllers
                 {
                     number += r.UserResponseId;
                 }
-                number = number / totalResponses.Count();
+                number = (number / totalResponses.Count()) - 1;
                 rd.NumberOfResponses = number;
                 responseData.Add(rd);
             }
