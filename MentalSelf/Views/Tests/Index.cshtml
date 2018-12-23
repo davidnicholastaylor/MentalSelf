@@ -1,6 +1,5 @@
 ﻿@model MentalSelf.Models.ViewModels.IndexChartViewModel
-
-
+@*Informational header*@
 <table class="table">
     <thead>
         <tr>
@@ -19,7 +18,7 @@
                         <br />4 = Nearly every day
                     </h4>
                 </div>
-                <br/>
+                <br />
                 <div>
                     <h4>
                         The graph below represents the average of the ratings for every time you've taken this test. Those average ratings are grouped by the categories for each question. This graph does not necessarily indicate you need to seek professional help. It is merely a point of reflection to provide greater self-awareness.
@@ -30,10 +29,11 @@
     </thead>
 </table>
 
+@*Chart*@
 <!DOCTYPE HTML>
-    <html>
-    <head>
-        <script>
+<html>
+<head>
+    <script>
 window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
@@ -55,25 +55,26 @@ var chart = new CanvasJS.Chart("chartContainer", {
 chart.render();
 
 }
-        </script>
-    </head>
-    <body>
-        <br/>
-        <br/>
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-        <br/>
-        <br/>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    </body>
+    </script>
+</head>
+<body>
+    <br />
+    <br />
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <br />
+    <br />
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+</body>
 </html>
 
 
 <table class="table">
     <tbody>
-        
+        @*Loop over all user tests  through UserTest property from view model*@
         @foreach (var item in Model.UserTest)
         {
+            // Display the date taken and the title of the test taken
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateTaken)
@@ -81,6 +82,7 @@ chart.render();
                 <td>
                     @Html.DisplayFor(modelItem => item.Test.Title)
                 </td>
+                @*Links to the details of a specific test and an option to delete the test*@
                 <td>
                     <a asp-action="Details" asp-route-id="@item.UserTestId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.UserTestId">Delete</a>

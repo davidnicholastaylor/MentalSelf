@@ -1,5 +1,6 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
+@*Informational header*@
 <table class="table">
     <thead>
         <tr>
@@ -31,6 +32,7 @@
     </thead>
 </table>
 
+@*Chart*@
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -70,23 +72,25 @@ chart.render();
     <tbody>
         <tr>
             <td>
+                @*Loop over all question types in QuestionTypes property*@
                 @foreach (QuestionType qt in Model.QuestionTypes)
                 {
                     <div class="row">
+                        @*Display name of question type*@
                         <h2>@qt.Type</h2>
                     </div>
+                    //Loop over all responses in Responses property
                     foreach (var r in Model.Responses)
                     {
+                        // If responses question type id matches the displayed question type id
+                        // display the questions pertaining to that question type with the user response rating
                         if (r.Question.QuestionTypeId == qt.QuestionTypeId)
                         {
                         <div class="row">
                             <h4>@r.Question.QuestionDesc</h4> <h4 style="text-decoration: underline">@r.UserResponse.Rating</h4>
                         </div>
-                        <div class="row">
-                            
-                        </div>
                         }
-                    }
+                }
 
                 }
             </td>
@@ -95,5 +99,5 @@ chart.render();
 </table>
 
 <div style="text-align: center">
-    <input type="submit" asp-action="Index" value="Previous Tests" class="btn-default" />
+    <a asp-action="Index">Back to List</a>
 </div>

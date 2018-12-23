@@ -62,18 +62,30 @@ namespace MentalSelf.Controllers
             // Create instance of ResponseDataViewModel
             List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
 
+            // Loop over all question types in the QuestionTypes list
             foreach (QuestionType qt in QuestionTypes)
             {
+                // Create a new instance of response data view model
                 ResponseDataViewModel rd = new ResponseDataViewModel();
+                // Give QuestionType in view model instance the value Type from the QuestionTypes list being looped over
                 rd.QuestionType = qt.Type;
+                // Create a variable containing a list of responses
+                // where the QuestionTypeId associated with the question on the response
+                // equals the QuestionTypeId on the list of QuestionTypes being looped over
                 var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
+                // Create a new integer variable named number
                 int number = new int();
+                // Loop over list of responses held in totalResposnes variable
                 foreach (var r in totalResponses)
                 {
+                    // Add a UserResponseId value to the number variable for each interation of the loop
                     number += r.UserResponseId;
                 }
+                // Divide the number variable by the amount of totalResponses and subtract 1
                 number = (number / totalResponses.Count()) - 1;
+                // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
+                // Add the instance of the view model to the list of responseData view models
                 responseData.Add(rd);
             }
 
@@ -81,19 +93,26 @@ namespace MentalSelf.Controllers
 
             // Create instance of IndexChartViewModel
             IndexChartViewModel viewModel = new IndexChartViewModel();
+            // Add values to the view model based on variables above
             viewModel.UserTest = userTests;
             viewModel.Responses = responses;
             viewModel.QuestionTypes = QuestionTypes;
             viewModel.ResponseData = responseData;
 
+            // Create a list of data points
             List<DataPoint> dataPoints = new List<DataPoint>();
+            // Loop over each instance of a view model in the responseData view model list
             foreach (var rd in responseData)
             {
+                // Add a new datapoint for each iteration
+                // passing in the values of the QuestionType and NumberOfResponses from the view model 
                 dataPoints.Add(new DataPoint(rd.QuestionType, rd.NumberOfResponses));
             }
 
+            // Magic
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
+            // Return the viewModel as the view
             return View(viewModel);
         }
 
@@ -119,6 +138,9 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
+            // Create a list of Responses that include UserResponses and Questions
+            // Where the UserTestId associated with the responses
+            // Equals the UserTestId associated with the UserTestDisplay variable
             List<Response> responses = await _context.Response
                         .Include(r => r.UserResponse)
                         .Include(r => r.Question)
@@ -128,46 +150,59 @@ namespace MentalSelf.Controllers
             // Create a list of QuestionTypes with value of QuestionType in database
             List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
 
+            // Create a new list of ResponseDataViewModels
             List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
 
+            // Loop over all question types in the QuestionTypes list
             foreach (QuestionType qt in QuestionTypes)
             {
+                // Create a new instance of response data view model
                 ResponseDataViewModel rd = new ResponseDataViewModel();
+                // Give QuestionType in view model instance the value Type from the QuestionTypes list being looped over
                 rd.QuestionType = qt.Type;
+                // Create a variable containing a list of responses
+                // where the QuestionTypeId associated with the question on the response
+                // equals the QuestionTypeId on the list of QuestionTypes being looped over
                 var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
+                // Create a new integer variable named number
                 int number = new int();
+                // Loop over list of responses held in totalResposnes variable
                 foreach (var r in totalResponses)
                 {
+                    // Add a UserResponseId value to the number variable for each interation of the loop
                     number += r.UserResponseId;
                 }
+                // Divide the number variable by the amount of totalResponses and subtract 1
                 number = (number / totalResponses.Count()) - 1;
+                // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
+                // Add the instance of the view model to the list of responseData view models
                 responseData.Add(rd);
             }
 
             // Create new instance of TestDetailsViewModel
             TestDetailsViewModel TestDetails = new TestDetailsViewModel();
 
-            // Pass value of UserTestDisplay into UserTest variable in view model
+            // Add values to the view model based on variables above
             TestDetails.UserTest = UserTestDisplay;
-
-            TestDetails.QuestionTypes = QuestionTypes;
-            
+            TestDetails.QuestionTypes = QuestionTypes;            
             TestDetails.Responses = responses;
-
             TestDetails.ResponseData = responseData;
 
             // Create a new list of datapoints
             List<DataPoint> dataPoints = new List<DataPoint>();
-            foreach(var rd in responseData)
+            // Loop over each instance of a view model in the responseData view model list
+            foreach (var rd in responseData)
             {
+                // Add a new datapoint for each iteration
+                // passing in the values of the QuestionType and NumberOfResponses from the view model 
                 dataPoints.Add(new DataPoint(rd.QuestionType, rd.NumberOfResponses));
             }
-            // Add data to list of datapoints
 
             // Magic
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
+            // Return TestDetails to the View
             return View(TestDetails);
         }
 
@@ -293,6 +328,7 @@ namespace MentalSelf.Controllers
         // GET: Tests/Delete/5
         public async Task<IActionResult> Delete(int? Id)
         {
+                // If Id holds no value throw 404 error
             if (Id == null)
             {
                 return NotFound();
@@ -300,14 +336,18 @@ namespace MentalSelf.Controllers
 
             // Create variable for all UserTests in database
             var UserTestDelete = await _context.UserTest
+            // Include the Test property
                 .Include(ut => ut.Test)
             // Select only the UserTests whose Id equals the Id integer passed into the view
                 .FirstOrDefaultAsync(ut => ut.UserTestId == Id);
+
+                // If UserTestDelete holds no value throw 404 error
             if (UserTestDelete == null)
             {
                 return NotFound();
             }
 
+            // return UserTestDelete to the view
             return View(UserTestDelete);
         }
 
@@ -316,15 +356,25 @@ namespace MentalSelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int Id)
         {
+            // Create a variable for UserTest in database
+            // Find UserTest by Id passed into view
             var userTest = await _context.UserTest.FindAsync(Id);
+            // Create a variable of Response in the database
                 var responses = await _context.Response
+                // Where the UserTestId associated with the response equals the UserTestId associated with the userTest variable
                 .Where(r => r.UserTestId == userTest.UserTestId)
+                // make the variable an asynchronous list
                 .ToListAsync();
+            // Loop over all Response instances in the list resposnes
             foreach (Response response in responses){
+                // Remove the Response instances
                 _context.Remove(response);
             }
+            // Remove the UserTest associated with userTest variable
             _context.UserTest.Remove(userTest);
+            // Save changes
             await _context.SaveChangesAsync();
+            // Redirect to Index
             return RedirectToAction(nameof(Index));
         }
 
