@@ -173,7 +173,12 @@ namespace MentalSelf.Controllers
                     number += r.UserResponseId;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
-                number = (number / totalResponses.Count()) - 1;
+                if (totalResponses.Count() != 0)
+                {
+                    number = (number / totalResponses.Count()) - 1;
+                } else {
+                    number = 0;
+                }
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
                 // Add the instance of the view model to the list of responseData view models
