@@ -31,8 +31,18 @@ namespace MentalSelf.Data
             modelBuilder.Entity<Test>().HasData(
             new Test() 
             {
-            TestId = 1,
-            Title = "Level 1 Cross-Cutting Symptom Measure—Adult"
+                TestId = 1,
+                Title = "Adult Level 1 Cross-Cutting Symptom Measure, Self-Rated"
+            },
+            new Test() 
+            {
+                TestId = 2,
+                Title = "Child Age 11-17 Level 1 Cross-Cutting Symptom Measure, Self-Rated"
+            },
+            new Test()
+            {
+                TestId = 3,
+                Title = "Child Age 6-17 Level 1 Cross-Cutting Symptom Measure, Parent/Guardian-Rated"
             }
             );
 
@@ -79,8 +89,8 @@ namespace MentalSelf.Data
             modelBuilder.Entity<QuestionType>().HasData(
             new QuestionType()
             {
-            QuestionTypeId = 1,
-            Type = "Depression"
+                QuestionTypeId = 1,
+                Type = "Depression"
             },
             new QuestionType()
             {
@@ -141,6 +151,16 @@ namespace MentalSelf.Data
             {
                 QuestionTypeId = 13,
                 Type = "Substance Use"
+            },
+            new QuestionType()
+            {
+                QuestionTypeId = 14,
+                Type = "Inattention"
+            },
+            new QuestionType()
+            { 
+                QuestionTypeId = 15,
+                Type = "Irritability"
             }
             );
 
@@ -305,6 +325,181 @@ namespace MentalSelf.Data
                 QuestionDesc = "23. Using any of the following medicines ON YOUR OWN, that is, without a doctor’s prescription, in greater amounts or longer than prescribed [e.g., painkillers (like Vicodin), stimulants (like Ritalin or Adderall), sedatives or tranquilizers (like sleeping pills or Valium), or drugs like marijuana, cocaine or crack, club drugs (like ecstasy), hallucinogens (like LSD), heroin, inhalants or solvents (like glue), or methamphetamine (like speed)]?",
                 QuestionTypeId = 13,
                 TestId = 1
+            },
+            new Question()
+            {
+                QuestionId = 24,
+                QuestionDesc = "1. Been bothered by stomachaches, headaches, or other aches and pains?",
+                QuestionTypeId = 5,
+                TestId = 2
+            },
+            new Question()
+            { 
+                QuestionId = 25,
+                QuestionDesc = "2. Worried about your health or about getting sick?",
+                QuestionTypeId = 5,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 26,
+                QuestionDesc = "3. Been bothered by not being able to fall asleep or stay asleep, or by waking up too early?",
+                QuestionTypeId = 8,
+                TestId = 2
+            },
+            new Question()
+            { 
+                QuestionId = 27,
+                QuestionDesc = "4. Been bothered by not being able to pay attention when you were in class or doing homework or reading a book or playing a game?",
+                QuestionTypeId =  14,
+                TestId = 2
+            },
+            new Question() 
+            { 
+                QuestionId = 28,
+                QuestionDesc = "5. Had less fun doing things than you used to?",
+                QuestionTypeId = 1,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 29,
+                QuestionDesc = "6. Felt sad or depressed for several hours?",
+                QuestionTypeId = 1,
+                TestId = 2
+            },
+            new Question()
+            { 
+                QuestionId = 30,
+                QuestionDesc = "7. Felt more irritated or easily annoyed than usual?",
+                QuestionTypeId = 15,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 30,
+                QuestionDesc = "8. Felt angry or lost your temper?",
+                QuestionTypeId = 2,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 31,
+                QuestionDesc = "9. Started lots more projects than usual or done more risky things than usual?",
+                QuestionTypeId = 3,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 32,
+                QuestionDesc = "10. Slept less than usual but still had a lot of energy?",
+                QuestionTypeId = 3,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 33,
+                QuestionDesc = "11. Felt nervous, anxious, or scared?",
+                QuestionTypeId = 4,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 34,
+                QuestionDesc = "12. Not been able to stop worrying?",
+                QuestionTypeId = 4,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 35,
+                QuestionDesc = "13. Not been able to do things you wanted to or should have done, because they made you feel nervous?",
+                QuestionTypeId = 4,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 36,
+                QuestionDesc = "14. Heard voices—when there was no one there—speaking about you or telling you what to do or saying bad things to you?",
+                QuestionTypeId = 7,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 37,
+                QuestionDesc = "15. Had visions when you were completely awake—that is, seen something or someone that no one else could see?",
+                QuestionTypeId = 7,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 38,
+                QuestionDesc = "16. Had thoughts that kept coming into your mind that you would do something bad or that something bad would happen to you or to someone else?",
+                QuestionTypeId = 10,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 39,
+                QuestionDesc = "17. Felt the need to check on certain things over and over again, like whether a door was locked or whether the stove was turned off?",
+                QuestionTypeId = 10,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 40,
+                QuestionDesc = "18. Worried a lot about things you touched being dirty or having germs or being poisoned?",
+                QuestionTypeId = 10,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 41,
+                QuestionDesc = "19. Felt you had to do things in a certain way, like counting or saying special things, to keep something bad from happening?",
+                QuestionTypeId = 10,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 42,
+                QuestionDesc = "20. Had an alcoholic beverage (beer, wine, liquor, etc.)?",
+                QuestionTypeId = 13,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 43,
+                QuestionDesc = "21. Smoked a cigarette, a cigar, or pipe, or used snuff or chewing tobacco?",
+                QuestionTypeId = 13,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 44,
+                QuestionDesc = "22. Used drugs like marijuana, cocaine or crack, club drugs (like Ecstasy), hallucinogens (like LSD), heroin, inhalants or solvents (like glue), or methamphetamine (like speed)?",
+                QuestionTypeId = 13,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 45,
+                QuestionDesc = "23. Used any medicine without a doctor’s prescription to get high or change the way you feel (e.g., painkillers [like Vicodin], stimulants [like Ritalin or Adderall], sedatives or tranquilizers [like sleeping pills or Valium], or steroids)?",
+                QuestionTypeId = 13,
+                TestId = 2
+            },
+            new Question()
+            {
+                QuestionId = 46,
+                QuestionDesc = "24. In the last 2 weeks, have you thought about killing yourself or committing suicide?",
+                QuestionTypeId = 6,
+                TestId = 2
+            },
+            new Question() 
+            {
+                QuestionId = 47,
+                QuestionDesc = "25. Have you EVER tried to kill yourself?",
+                QuestionTypeId = 6,
+                TestId = 2
             }
             );
         }
