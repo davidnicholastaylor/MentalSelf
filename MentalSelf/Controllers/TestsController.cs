@@ -40,7 +40,7 @@ namespace MentalSelf.Controllers
         }
 
         // GET: Tests
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Id)
         {
 
 
@@ -49,6 +49,7 @@ namespace MentalSelf.Controllers
                                     .Include(r => r.UserResponse)
                                     .Include(r => r.Question)
                                     .Include(r => r.UserTest)
+                                    .Where(r => r.Question.TestId == Id)
                                     .ToListAsync();
 
             // Create a list of QuestionTypes
@@ -57,6 +58,7 @@ namespace MentalSelf.Controllers
             // Create a list of UserTests that include the Test Data
             List<UserTest> userTests = await _context.UserTest
             .Include(ut => ut.Test)
+            .Where(ut => ut.TestId == Id)
             .ToListAsync();
 
             // Create instance of ResponseDataViewModel
@@ -82,7 +84,14 @@ namespace MentalSelf.Controllers
                     number += r.UserResponseId;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
-                number = (number / totalResponses.Count()) - 1;
+                if (totalResponses.Count() != 0)
+                {
+                    number = (number / totalResponses.Count()) - 1;
+                }
+                else
+                {
+                    number = 0;
+                }
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
                 // Add the instance of the view model to the list of responseData view models
@@ -146,6 +155,8 @@ namespace MentalSelf.Controllers
                         .Include(r => r.Question)
                         .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
                         .ToListAsync();
+
+            var Questions = _context.Question;
 
             // Create a list of QuestionTypes with value of QuestionType in database
             List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
