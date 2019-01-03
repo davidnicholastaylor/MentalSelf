@@ -40,23 +40,30 @@ namespace MentalSelf.Controllers
         }
 
         // GET: Tests
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Id)
         {
 
 
-            // Create a list of Responses that include UserResponses, Questions, and UserTestIds
+            // Create a list of Responses that include UserResponses, UserTests, and Questions that include their QuestionTypes
+            // where the TestId of the Questions equal the Id passed in from the TestList view
             List<Response> responses = await _context.Response
                                     .Include(r => r.UserResponse)
-                                    .Include(r => r.Question)
                                     .Include(r => r.UserTest)
+                                    .Include(r => r.Question)
+                                    .ThenInclude(q => q.QuestionType)
+                                    .Where(r => r.Question.TestId == Id)
                                     .ToListAsync();
 
             // Create a list of QuestionTypes
-            List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
+            // Select the QuestionTypes available through the Questions on the responses
+            // Make the selected QuestionTypes distinct so they don't repeat
+            // Order QuestionTypes by QuestionTypeId
+            List<QuestionType> QuestionTypes = responses.Select(r => r.Question.QuestionType).Distinct().OrderBy(qt => qt.QuestionTypeId).ToList();
 
             // Create a list of UserTests that include the Test Data
             List<UserTest> userTests = await _context.UserTest
             .Include(ut => ut.Test)
+            .Where(ut => ut.TestId == Id)
             .ToListAsync();
 
             // Create instance of ResponseDataViewModel
@@ -83,6 +90,7 @@ namespace MentalSelf.Controllers
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
                 number = (number / totalResponses.Count()) - 1;
+                
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
                 // Add the instance of the view model to the list of responseData view models
@@ -138,17 +146,23 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
-            // Create a list of Responses that include UserResponses and Questions
+            // Create a list of Responses that include UserResponses and Questions that include their QuestionTypes
             // Where the UserTestId associated with the responses
             // Equals the UserTestId associated with the UserTestDisplay variable
             List<Response> responses = await _context.Response
                         .Include(r => r.UserResponse)
                         .Include(r => r.Question)
+                        .ThenInclude(q => q.QuestionType)
                         .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
+                        .OrderBy(r => r.Question.QuestionId)
                         .ToListAsync();
 
-            // Create a list of QuestionTypes with value of QuestionType in database
-            List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
+
+            // Create a list of QuestionTypes
+            // Select the QuestionTypes available through the Questions on the responses
+            // Make the selected QuestionTypes distinct so they don't repeat
+            // Order QuestionTypes by QuestionTypeId
+            List<QuestionType> QuestionTypes = responses.Select(r => r.Question.QuestionType).Distinct().ToList();
 
             // Create a new list of ResponseDataViewModels
             List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
@@ -174,6 +188,7 @@ namespace MentalSelf.Controllers
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
                 number = (number / totalResponses.Count()) - 1;
+                
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
                 // Add the instance of the view model to the list of responseData view models

@@ -80,7 +80,7 @@ chart.render();
                         <h2>@qt.Type</h2>
                     </div>
                     //Loop over all responses in Responses property
-                    foreach (var r in Model.Responses)
+                    foreach (var r in Model.Responses.OrderBy(r => r.QuestionId))
                     {
                         // If responses question type id matches the displayed question type id
                         // display the questions pertaining to that question type with the user response rating
