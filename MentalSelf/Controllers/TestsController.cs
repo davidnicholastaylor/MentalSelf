@@ -153,13 +153,13 @@ namespace MentalSelf.Controllers
             List<Response> responses = await _context.Response
                         .Include(r => r.UserResponse)
                         .Include(r => r.Question)
+                        .ThenInclude(q => q.QuestionType)
                         .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
                         .ToListAsync();
 
-            var Questions = _context.Question;
 
             // Create a list of QuestionTypes with value of QuestionType in database
-            List<QuestionType> QuestionTypes = await _context.QuestionType.ToListAsync();
+            List<QuestionType> QuestionTypes = responses.Select(r => r.Question.QuestionType).Distinct().OrderBy(qt => qt.QuestionTypeId).ToList();
 
             // Create a new list of ResponseDataViewModels
             List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
