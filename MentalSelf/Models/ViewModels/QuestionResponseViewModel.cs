@@ -8,6 +8,7 @@ namespace MentalSelf.Models.ViewModels
     public class QuestionResponseViewModel
     {
     public UserTest UserTest { get; set; } = new UserTest { };
+    public Test Test { get; set; }
     public List<Question> Questions { get; set; }
     public List<Response> Responses { get; set; }
     public List<UserResponse> UserResponses { get; set; }

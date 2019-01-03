@@ -34,10 +34,10 @@
                             {
                                 <div class="row">
                                     @*
-                                        Create input for [i] iterated responses containing UseerResponseId
-                                        Give input an id based on both iterators
-                                        Give input value of [r] interated UserResponses containing UserResponseId
-                                        Give input type of radio button
+                            Create input for [i] iterated responses containing UseerResponseId
+                            Give input an id based on both iterators
+                            Give input value of [r] interated UserResponses containing UserResponseId
+                            Give input type of radio button
                                     *@
                                     <input asp-for="@Model.Responses[i].UserResponseId"
                                            id=@($"rating-{i}-{r}")
@@ -56,18 +56,20 @@
                     </div>
                     @*Submit button for form*@
                     <div>
-                        <input type="submit" value="Submit" class="btn btn-success btn-lg" />
+                        <input type="submit" value="Submit" class="btn btn-success" />
                     </div>
-</form>
+                    </br>
+                </form>
+                @*Button to go back to Index*@
+                <div>
+                    <a class="btn btn-danger" role="button" asp-action="Index" asp-route-id="@Model.Test.TestId">Cancel</a>
+                </div>
             </td>
         </tr>
     </tbody>
 </table>
 
-@*Button to go back to Index*@
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

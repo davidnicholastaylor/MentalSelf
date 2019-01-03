@@ -233,6 +233,7 @@ namespace MentalSelf.Controllers
             QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
             // Give the value of the created list of questions to the Questions List in the view model
             viewModel.Questions = questions;
+            viewModel.Test = test;
             
             // return view model
             return View(viewModel);
