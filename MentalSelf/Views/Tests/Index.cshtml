@@ -69,7 +69,7 @@ chart.render();
 </html>
 
 
-<table class="table">
+<table class="table table-hover">
     <tbody>
         @*Loop over all user tests  through UserTest property from view model*@
         @foreach (var item in Model.UserTest)
@@ -84,8 +84,8 @@ chart.render();
                 </td>
                 @*Links to the details of a specific test and an option to delete the test*@
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.UserTestId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UserTestId">Delete</a>
+                    <a class="btn btn-info" role="button" asp-action="Details" asp-route-id="@item.UserTestId">Details</a>
+                    <a class="btn btn-danger" role="button" asp-action="Delete" asp-route-id="@item.UserTestId">Delete</a>
                 </td>
             </tr>
         }
