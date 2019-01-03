@@ -1,19 +1,26 @@
 ﻿@model IEnumerable<MentalSelf.Models.Test>
 
 @{
-    ViewData["Title"] = "Test";
-    ViewData["Message"] = "Select which test you'd like to take.";
+    ViewData["Title"] = "Select which test you'd like to take.";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<table class="row">
+<table class="table">
+    <tbody>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                <a asp-action="Create" asp-route-id="@item.TestId">Take the test</a> @Html.DisplayFor(modelItem => item.Title) <a asp-action="Index" asp-route-id="@item.TestId">Previous Tests</a>
+                <a asp-action="Create" asp-route-id="@item.TestId">Take the test</a> 
+                
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Title) 
+            </td>
+            <td>
+                    <a asp-action="Index" asp-route-id="@item.TestId">Previous Tests</a>
             </td>
         </tr>
     }
+    </tbody>
 </table>
