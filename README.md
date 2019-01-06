@@ -9,6 +9,6 @@
 ---
 
 ## Technologies Used
-####[Visual Studio](https://visualstudio.microsoft.com/ "Download Visual Studio")
-####[SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017 "Download SSMS")
-####[CanvasJS](https://canvasjs.com/asp-net-mvc-charts/ "CanvasJS MVC Charts")
+[Visual Studio](https://visualstudio.microsoft.com/ "Download Visual Studio")
+[SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017 "Download SSMS")
+[CanvasJS](https://canvasjs.com/asp-net-mvc-charts/ "CanvasJS MVC Charts")
