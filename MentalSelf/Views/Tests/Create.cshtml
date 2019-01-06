@@ -1,14 +1,19 @@
 ﻿@model MentalSelf.Models.ViewModels.QuestionResponseViewModel
 
 @{
-    ViewData["Title"] = "Level 1 General Symptom Measure Adult";
-    ViewData["Message"] = "In the past two weeks, have you experienced any of the following problems?";
+    ViewData["Title"] = Model.Test.Title;
+    ViewData["Message"] = "In the past two weeks, how often have you experienced any of the following?";
+    ViewData["Message2"] = "In the past two weeks, how often has your child experienced any of the following?";
 }
 
 
 <h2>@ViewData["Title"]</h2>
 <br />
+@if(Model.Test.TestId != 3){
 <h4>@ViewData["Message"]</h4>
+} else {
+<h4>@ViewData["Message2"]</h4>
+}
 
 <table class="table">
     <tbody>
