@@ -368,7 +368,7 @@ namespace MentalSelf.Controllers
         }
 
         // POST: Tests/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int Id)
         {
@@ -376,11 +376,12 @@ namespace MentalSelf.Controllers
             // Find UserTest by Id passed into view
             var userTest = await _context.UserTest.FindAsync(Id);
             // Create a variable of Response in the database
-                var responses = await _context.Response
                 // Where the UserTestId associated with the response equals the UserTestId associated with the userTest variable
-                .Where(r => r.UserTestId == userTest.UserTestId)
                 // make the variable an asynchronous list
+                var responses = await _context.Response
+                .Where(r => r.UserTestId == userTest.UserTestId)
                 .ToListAsync();
+            var testId = userTest.TestId;
             // Loop over all Response instances in the list resposnes
             foreach (Response response in responses){
                 // Remove the Response instances
@@ -391,7 +392,7 @@ namespace MentalSelf.Controllers
             // Save changes
             await _context.SaveChangesAsync();
             // Redirect to Index
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Tests", new { id = testId });
         }
 
         private bool UserTestExists(int Id)
