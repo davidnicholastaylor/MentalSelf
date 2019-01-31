@@ -21,11 +21,34 @@ body {
     margin: 15px;
 }
 
+.carousel-caption {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.carousel-caption {
+    top: 10%;
+    bottom: auto;
+}
+
+.carousel-inner {
+    overflow-y: auto;
+    height: 300px;
+}
+
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    /* Hide captions */
+
     .carousel-caption {
-        display: none;
+        display: flex;
+        font-size: 1em;
     }
+
+    .carousel-inner {
+        overflow-y: auto;
+        height: 180px;
+    }
+
 }
 
