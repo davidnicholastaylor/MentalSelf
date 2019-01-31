@@ -41,13 +41,15 @@ body {
 @media screen and (max-width: 767px) {
 
     .carousel-caption {
-        display: flex;
+        top: 5%;
+        bottom: auto;
+        display: block;
         font-size: 1em;
     }
 
     .carousel-inner {
         overflow-y: auto;
-        height: 180px;
+        height: 150px;
     }
 
 }
