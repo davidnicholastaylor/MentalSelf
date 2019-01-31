@@ -23,14 +23,9 @@ body {
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    .carousel-container {
-        width: 100%;
-        max-height: 90%;
-        min-height: 90%;
-    }
-
-    .carousel-content {
-        width: 80%;
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
     }
 }
 

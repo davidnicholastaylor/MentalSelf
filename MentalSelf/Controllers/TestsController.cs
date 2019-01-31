@@ -42,23 +42,25 @@ namespace MentalSelf.Controllers
         // GET: Tests
         public async Task<IActionResult> Index(int Id)
         {
+            var currentUser = await GetCurrentUserAsync();
 
-
-            // Create a list of Responses that include UserResponses, UserTests, and Questions that include their QuestionTypes
+            // Create a list of Responses that include UserResponses, UserTests, User and Questions that include their QuestionTypes
             // where the TestId of the Questions equal the Id passed in from the TestList view
             List<Response> responses = await _context.Response
                                     .Include(r => r.UserResponse)
                                     .Include(r => r.UserTest)
+                                    .Include(r => r.User)
                                     .Include(r => r.Question)
                                     .ThenInclude(q => q.QuestionType)
-                                    .Where(r => r.Question.TestId == Id)
+                                    .Where(r => r.Question.TestId == Id && r.User == currentUser)
                                     .ToListAsync();
+
 
             // Create a list of QuestionTypes
             // Select the QuestionTypes available through the Questions on the responses
             // Make the selected QuestionTypes distinct so they don't repeat
             // Order QuestionTypes by QuestionTypeId
-            List<QuestionType> QuestionTypes = responses.Select(r => r.Question.QuestionType).Distinct().OrderBy(qt => qt.QuestionTypeId).ToList();
+            List<QuestionType> questionTypes = responses.Select(r => r.Question.QuestionType).Distinct().OrderBy(qt => qt.QuestionTypeId).ToList();
 
             // Create a list of UserTests that include the Test Data
             List<UserTest> userTests = await _context.UserTest
@@ -70,7 +72,7 @@ namespace MentalSelf.Controllers
             List<ResponseDataViewModel> responseData = new List<ResponseDataViewModel>();
 
             // Loop over all question types in the QuestionTypes list
-            foreach (QuestionType qt in QuestionTypes)
+            foreach (QuestionType qt in questionTypes)
             {
                 // Create a new instance of response data view model
                 ResponseDataViewModel rd = new ResponseDataViewModel();
@@ -102,9 +104,10 @@ namespace MentalSelf.Controllers
             // Create instance of IndexChartViewModel
             IndexChartViewModel viewModel = new IndexChartViewModel();
             // Add values to the view model based on variables above
+
             viewModel.UserTest = userTests;
             viewModel.Responses = responses;
-            viewModel.QuestionTypes = QuestionTypes;
+            viewModel.QuestionTypes = questionTypes;
             viewModel.ResponseData = responseData;
 
             // Create a list of data points
@@ -146,14 +149,17 @@ namespace MentalSelf.Controllers
                 return NotFound();
             }
 
+            var currentUser = await GetCurrentUserAsync();
+
             // Create a list of Responses that include UserResponses and Questions that include their QuestionTypes
             // Where the UserTestId associated with the responses
             // Equals the UserTestId associated with the UserTestDisplay variable
             List<Response> responses = await _context.Response
                         .Include(r => r.UserResponse)
+                        .Include(r => r.User)
                         .Include(r => r.Question)
                         .ThenInclude(q => q.QuestionType)
-                        .Where(r => r.UserTestId == UserTestDisplay.UserTestId)
+                        .Where(r => r.UserTestId == UserTestDisplay.UserTestId && r.User == currentUser)
                         .OrderBy(r => r.Question.QuestionId)
                         .ToListAsync();
 
