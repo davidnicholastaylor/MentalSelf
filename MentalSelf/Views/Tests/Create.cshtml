@@ -9,7 +9,7 @@
 
 <h2>@ViewData["Title"]</h2>
 <br />
-@if(Model.Test.TestId != 3){
+@if (Model.Test.TestId != 3) {
 <h4>@ViewData["Message"]</h4>
 } else {
 <h4>@ViewData["Message2"]</h4>
@@ -31,25 +31,23 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
                                     
-                                    <img src="~/images/carousel-desktop.jpeg" object-fit="fill" alt="carousel" class="img-responsive" />
                                     
                                     <div class="carousel-caption" role="option">
-                                        <h4>
-                                            This is a self-assessment test. It is designed to help you better understand yourself. There are no wrong answers - only honest responses.
-                                        </h4>
+                                        <h3>
+                                            This test has up to five choices for each questions. The test is designed to help you better understand yourself. There are no wrong answers - only honest responses.
+                                        </h3>
                                     </div>
                                 </div>
                                 @for (var i = 0; i < Model.Questions.Count; i++)
                                 {
                                     <div class="item">
-                                        <img src="~/images/carousel-desktop.jpeg" object-fit="fill" alt="carousel" class="img-responsive" />
                                         <div class="carousel-caption" role="option">
 
                                             <div class="row">
                                                 @*Create hidden input for [i] interated responses containing the QuestionId based on the value of the [i] interated questions containing the QuestionId*@
                                                 <input type="hidden" asp-for="@Model.Responses[i].QuestionId" value="@Model.Questions[i].QuestionId" />
                                                 @*Display question descriptions based on the [i] iterated questions*@
-                                                <h4>@Model.Questions[i].QuestionDesc</h4>
+                                                <h3>@Model.Questions[i].QuestionDesc</h3>
                                             </div>
                                             @*Create [r] iterator based on number of UserResponses in UserResponses List*@
                                             @for (var r = 0; r < Model.UserResponses.Count; r++)
@@ -68,7 +66,7 @@
                                                     @*Create label for input based on the same input id*@
                                                     @*Display [r] iterated UserResponses containing Rating*@
                                                     <label for=@($"rating-{i}-{r}")>
-                                                        @(Model.UserResponses[r].Rating)
+                                                        <h4>@(Model.UserResponses[r].Rating)</h4>
                                                     </label>
                                                 </div>
                                             }
