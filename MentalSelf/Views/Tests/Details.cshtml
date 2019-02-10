@@ -72,27 +72,59 @@ chart.render();
     <tbody>
         <tr>
             <td>
-                @*Loop over all question types in QuestionTypes property*@
-                @foreach (QuestionType qt in Model.QuestionTypes)
-                {
-                    <div class="row">
-                        @*Display name of question type*@
-                        <h2>@qt.Type</h2>
-                    </div>
-                    //Loop over all responses in Responses property
-                    foreach (var r in Model.Responses.OrderBy(r => r.QuestionId))
-                    {
-                        // If responses question type id matches the displayed question type id
-                        // display the questions pertaining to that question type with the user response rating
-                        if (r.Question.QuestionTypeId == qt.QuestionTypeId)
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        @for (var i = 0; i < Model.QuestionTypes.Count; i++)
                         {
-                        <div class="row">
-                            <h4>@r.Question.QuestionDesc</h4> <h4 style="text-decoration: underline">@r.UserResponse.Rating</h4>
-                        </div>
+                            <li data-target="#myCarousel" data-slide-to="@Model.QuestionTypes[i]"></li>
                         }
-                }
-
-                }
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <div class="carousel-caption" role="option">
+                                <h3>Your individual responses can be found here. Questions and answers are grouped by the disorder with which they are associated.</h3>
+                            </div>
+                        </div>
+                        @*Loop over all question types in QuestionTypes property*@
+                        @foreach (QuestionType qt in Model.QuestionTypes)
+                        {
+                            <div class="item">
+                                <div class="carousel-caption" role="option">
+                                    <div class="row">
+                                        @*Display name of question type*@
+                                        <h2>@qt.Type</h2>
+                                    </div>
+                                    @*Loop over all responses in Responses property*@
+                                    @foreach (var r in Model.Responses.OrderBy(r => r.QuestionId))
+                                    {
+                                        // If responses question type id matches the displayed question type                id
+                                        // display the questions pertaining to that question type with the                  user response rating
+                                        if (r.Question.QuestionTypeId == qt.QuestionTypeId)
+                                        {
+                                            <div class="row">
+                                                <h4>
+                                                    @r.Question.QuestionDesc
+                                                </h4> 
+                                                <h4 style="text-decoration:underline">
+                                                    @r.UserResponse.Rating
+                                                </h4>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </td>
         </tr>
     </tbody>
