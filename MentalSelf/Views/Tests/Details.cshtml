@@ -83,7 +83,7 @@ chart.render();
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <div class="carousel-caption" role="option">
-                                <h3>The following is each question and answer grouped by the disorder with         which they are associated.</h3>
+                                <h3>Your individual responses can be found here. Questions and answers are grouped by the disorder with which they are associated.</h3>
                             </div>
                         </div>
                         @*Loop over all question types in QuestionTypes property*@
@@ -103,7 +103,12 @@ chart.render();
                                         if (r.Question.QuestionTypeId == qt.QuestionTypeId)
                                         {
                                             <div class="row">
-                                                <h4>@r.Question.QuestionDesc</h4> <h4 style="text-decoration:                       underline">@r.UserResponse.Rating</h4>
+                                                <h4>
+                                                    @r.Question.QuestionDesc
+                                                </h4> 
+                                                <h4 style="text-decoration:underline">
+                                                    @r.UserResponse.Rating
+                                                </h4>
                                             </div>
                                         }
                                     }
