@@ -57,7 +57,7 @@
                                                     <h3>@Model.Questions[i].QuestionDesc</h3>
                                                 </div>
                                                 @*Create [r] iterator based on number of UserResponses in                           UserResponses List*@
-                                                @for (var r = 0; r < Model.UserResponses.Count; r++)
+                                                @for (var r = 0; r < Model.Ratings.Count; r++)
                                                 {
                                                     <div class="row">
                                                         @*
@@ -66,14 +66,14 @@
                                                         Give input value of [r] interated UserResponses                                   containing UserResponseId
                                                         Give input type of radio button
                                                         *@
-                                                        <input asp-for="@Model.Responses[i].UserResponseId"
+                                                        <input asp-for="@Model.Responses[i].RatingId"
                                                          id=@($"rating-{i}-{r}")
-                                                         value="@(Model.UserResponses[r].UserResponseId)"
+                                                         value="@(Model.Ratings[r].RatingId)"
                                                          type="radio" />
                                                         @*Create label for input based on the same input id*@
                                                         @*Display [r] iterated UserResponses containing                                     Rating*@
                                                         <label for=@($"rating-{i}-{r}")>
-                                                            <h4>@(Model.UserResponses[r].Rating)</h4>
+                                                            <span>@(Model.Ratings[r].RatingDescription)</span>
                                                         </label>
                                                     </div>
                                                 }

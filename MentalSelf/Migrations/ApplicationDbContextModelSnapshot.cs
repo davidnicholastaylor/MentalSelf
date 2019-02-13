@@ -123,6 +123,8 @@ namespace MentalSelf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Threshold");
+
                     b.Property<string>("Type")
                         .IsRequired();
 
@@ -131,22 +133,46 @@ namespace MentalSelf.Migrations
                     b.ToTable("QuestionType");
 
                     b.HasData(
-                        new { QuestionTypeId = 1, Type = "Depression" },
-                        new { QuestionTypeId = 2, Type = "Anger" },
-                        new { QuestionTypeId = 3, Type = "Mania" },
-                        new { QuestionTypeId = 4, Type = "Anxiety" },
-                        new { QuestionTypeId = 5, Type = "Somatic Symptoms" },
-                        new { QuestionTypeId = 6, Type = "Suicidal Ideation" },
-                        new { QuestionTypeId = 7, Type = "Psychosis" },
-                        new { QuestionTypeId = 8, Type = "Sleep Problems" },
-                        new { QuestionTypeId = 9, Type = "Memory" },
-                        new { QuestionTypeId = 10, Type = "Repetative Thoughts and Behaviors" },
-                        new { QuestionTypeId = 11, Type = "Dissociation" },
-                        new { QuestionTypeId = 12, Type = "Personality Functioning" },
-                        new { QuestionTypeId = 13, Type = "Substance Use" },
-                        new { QuestionTypeId = 14, Type = "Inattention" },
-                        new { QuestionTypeId = 15, Type = "Irritability" },
-                        new { QuestionTypeId = 16, Type = "Anger and Irritability" }
+                        new { QuestionTypeId = 1, Threshold = 2, Type = "Depression" },
+                        new { QuestionTypeId = 2, Threshold = 2, Type = "Anger" },
+                        new { QuestionTypeId = 3, Threshold = 2, Type = "Mania" },
+                        new { QuestionTypeId = 4, Threshold = 2, Type = "Anxiety" },
+                        new { QuestionTypeId = 5, Threshold = 2, Type = "Somatic Symptoms" },
+                        new { QuestionTypeId = 6, Threshold = 1, Type = "Suicidal Ideation" },
+                        new { QuestionTypeId = 7, Threshold = 1, Type = "Psychosis" },
+                        new { QuestionTypeId = 8, Threshold = 2, Type = "Sleep Problems" },
+                        new { QuestionTypeId = 9, Threshold = 2, Type = "Memory" },
+                        new { QuestionTypeId = 10, Threshold = 2, Type = "Repetative Thoughts and Behaviors" },
+                        new { QuestionTypeId = 11, Threshold = 2, Type = "Dissociation" },
+                        new { QuestionTypeId = 12, Threshold = 2, Type = "Personality Functioning" },
+                        new { QuestionTypeId = 13, Threshold = 1, Type = "Substance Use" },
+                        new { QuestionTypeId = 14, Threshold = 1, Type = "Inattention" },
+                        new { QuestionTypeId = 15, Threshold = 2, Type = "Irritability" },
+                        new { QuestionTypeId = 16, Threshold = 2, Type = "Anger and Irritability" }
+                    );
+                });
+
+            modelBuilder.Entity("MentalSelf.Models.Rating", b =>
+                {
+                    b.Property<int>("RatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RatingAmount");
+
+                    b.Property<string>("RatingDescription")
+                        .IsRequired();
+
+                    b.HasKey("RatingId");
+
+                    b.ToTable("Rating");
+
+                    b.HasData(
+                        new { RatingId = 1, RatingAmount = 0, RatingDescription = "Not at all" },
+                        new { RatingId = 2, RatingAmount = 1, RatingDescription = "Rare, less than a couple days" },
+                        new { RatingId = 3, RatingAmount = 2, RatingDescription = "Several days" },
+                        new { RatingId = 4, RatingAmount = 3, RatingDescription = "More than half the days" },
+                        new { RatingId = 5, RatingAmount = 4, RatingDescription = "Nearly every day" }
                     );
                 });
 
@@ -158,10 +184,7 @@ namespace MentalSelf.Migrations
 
                     b.Property<int>("QuestionId");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.Property<int>("UserResponseId");
+                    b.Property<int>("RatingId");
 
                     b.Property<int>("UserTestId");
 
@@ -169,9 +192,7 @@ namespace MentalSelf.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserResponseId");
+                    b.HasIndex("RatingId");
 
                     b.HasIndex("UserTestId");
 
@@ -198,27 +219,6 @@ namespace MentalSelf.Migrations
                     );
                 });
 
-            modelBuilder.Entity("MentalSelf.Models.UserResponse", b =>
-                {
-                    b.Property<int>("UserResponseId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Rating");
-
-                    b.HasKey("UserResponseId");
-
-                    b.ToTable("UserResponse");
-
-                    b.HasData(
-                        new { UserResponseId = 1, Rating = "Not at all" },
-                        new { UserResponseId = 2, Rating = "Rare, less than a couple days" },
-                        new { UserResponseId = 3, Rating = "Several days" },
-                        new { UserResponseId = 4, Rating = "More than half the days" },
-                        new { UserResponseId = 5, Rating = "Nearly every day" }
-                    );
-                });
-
             modelBuilder.Entity("MentalSelf.Models.UserTest", b =>
                 {
                     b.Property<int>("UserTestId")
@@ -231,9 +231,14 @@ namespace MentalSelf.Migrations
 
                     b.Property<int>("TestId");
 
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
                     b.HasKey("UserTestId");
 
                     b.HasIndex("TestId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserTest");
                 });
@@ -440,18 +445,13 @@ namespace MentalSelf.Migrations
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MentalSelf.Models.ApplicationUser", "User")
-                        .WithMany("Responses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MentalSelf.Models.UserResponse", "UserResponse")
+                    b.HasOne("MentalSelf.Models.Rating", "Rating")
                         .WithMany()
-                        .HasForeignKey("UserResponseId")
+                        .HasForeignKey("RatingId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MentalSelf.Models.UserTest", "UserTest")
-                        .WithMany()
+                        .WithMany("Responses")
                         .HasForeignKey("UserTestId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -462,6 +462,11 @@ namespace MentalSelf.Migrations
                         .WithMany()
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MentalSelf.Models.ApplicationUser", "User")
+                        .WithMany("UserTests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

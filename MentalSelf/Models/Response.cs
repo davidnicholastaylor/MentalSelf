@@ -22,14 +22,8 @@ namespace MentalSelf.Models
         public UserTest UserTest { get; set; }
 
         [Required]
-        public ApplicationUser User { get; set; }
+        public int RatingId { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
-
-        [Required]
-        public int UserResponseId { get; set; }
-
-        public UserResponse UserResponse { get; set; }
+        public Rating Rating { get; set; }
     }
 }

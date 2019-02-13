@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace MentalSelf.Models
 {
-    public class QuestionType
+    public class Rating
     {
         [Key]
-        public int QuestionTypeId { get; set; }
+        public int RatingId { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public int RatingAmount { get; set; }
 
         [Required]
-        public int Threshold { get; set; }
-
-        public ICollection<Question> Questions { get; set; }
+        public string RatingDescription { get; set; }
     }
 }

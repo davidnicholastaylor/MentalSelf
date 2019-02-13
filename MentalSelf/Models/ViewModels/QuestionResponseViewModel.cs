@@ -11,32 +11,37 @@ namespace MentalSelf.Models.ViewModels
     public Test Test { get; set; }
     public List<Question> Questions { get; set; }
     public List<Response> Responses { get; set; }
-    public List<UserResponse> UserResponses { get; set; }
+    public List<Rating> Ratings { get; set; }
 
     // Create instance of QuestionResponseViewModel
         public QuestionResponseViewModel()
         {
             // Create new list of User Responses to be used in view
-            UserResponses = new List<UserResponse> {
-            new UserResponse {
-                UserResponseId = 1,
-                Rating = "Not at all"
+            Ratings = new List<Rating> {
+            new Rating {
+                RatingId = 1,
+                RatingAmount = 0,
+                RatingDescription = "Not at all"
             },
-            new UserResponse {
-                UserResponseId = 2,
-                Rating = "Rare, less than a couple days"
+            new Rating {
+                RatingId = 2,
+                RatingAmount = 1,
+                RatingDescription = "Rare, less than a couple days"
             },
-            new UserResponse {
-                UserResponseId = 3,
-                Rating = "Several days"
+            new Rating {
+                RatingId = 3,
+                RatingAmount = 2,
+                RatingDescription = "Several days"
             },
-            new UserResponse {
-                UserResponseId = 4,
-                Rating = "More than half the days"
+            new Rating {
+                RatingId = 4,
+                RatingAmount = 3,
+                RatingDescription = "More than half the days"
             },
-            new UserResponse {
-                UserResponseId = 5,
-                Rating = "Nearly every day"
+            new Rating {
+                RatingId = 5,
+                RatingAmount = 4,
+                RatingDescription = "Nearly every day"
             },
             };
         }
