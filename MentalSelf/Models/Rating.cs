@@ -10,7 +10,10 @@ namespace MentalSelf.Models
     {
         [Key]
         public int RatingId { get; set; }
-        
+
+        [Required]
+        public int RatingAmount { get; set; }
+
         [Required]
         public string RatingDescription { get; set; }
     }
