@@ -49,40 +49,45 @@ namespace MentalSelf.Data
             modelBuilder.Entity<Rating>().HasData(
             new Rating() 
             {
-                UserResponseId = 1,
-                Rating = "Not at all"
+                RatingId = 1,
+                RatingAmount = 0,
+                RatingDescription = "Not at all"
             }
             );
 
             modelBuilder.Entity<Rating>().HasData(
             new Rating()
             {
-                UserResponseId = 2,
-                Rating = "Rare, less than a couple days"
+                RatingId = 2,
+                RatingAmount = 1,
+                RatingDescription = "Rare, less than a couple days"
             }
             );
 
             modelBuilder.Entity<Rating>().HasData(
             new Rating()
             {
-                UserResponseId = 3,
-                Rating = "Several days"
+                RatingId = 3,
+                RatingAmount = 2,
+                RatingDescription = "Several days"
             }
             );
 
             modelBuilder.Entity<Rating>().HasData(
             new Rating()
             {
-                UserResponseId = 4,
-                Rating = "More than half the days"
+                RatingId = 4,
+                RatingAmount = 3,
+                RatingDescription = "More than half the days"
             }
             );
 
             modelBuilder.Entity<Rating>().HasData(
             new Rating()
             {
-                UserResponseId = 5,
-                Rating = "Nearly every day"
+                RatingId = 5,
+                RatingAmount = 4,
+                RatingDescription = "Nearly every day"
             }
             );
 
@@ -90,82 +95,98 @@ namespace MentalSelf.Data
             new QuestionType()
             {
                 QuestionTypeId = 1,
-                Type = "Depression"
+                Type = "Depression",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 2,
-                Type = "Anger"
+                Type = "Anger",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 3,
-                Type = "Mania"
+                Type = "Mania",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 4,
-                Type = "Anxiety"
+                Type = "Anxiety",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 5,
-                Type = "Somatic Symptoms"
+                Type = "Somatic Symptoms",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 6,
-                Type = "Suicidal Ideation"
+                Type = "Suicidal Ideation",
+                Threshold = 1
             },
             new QuestionType()
             {
                 QuestionTypeId = 7,
-                Type = "Psychosis"
+                Type = "Psychosis",
+                Threshold = 1
             },
             new QuestionType()
             {
                 QuestionTypeId = 8,
-                Type = "Sleep Problems"
+                Type = "Sleep Problems",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 9,
-                Type = "Memory"
+                Type = "Memory",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 10,
-                Type = "Repetative Thoughts and Behaviors"
+                Type = "Repetative Thoughts and Behaviors",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 11,
-                Type = "Dissociation"
+                Type = "Dissociation",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 12,
-                Type = "Personality Functioning"
+                Type = "Personality Functioning",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 13,
-                Type = "Substance Use"
+                Type = "Substance Use",
+                Threshold = 1
             },
             new QuestionType()
             {
                 QuestionTypeId = 14,
-                Type = "Inattention"
+                Type = "Inattention",
+                Threshold = 1
             },
             new QuestionType()
             { 
                 QuestionTypeId = 15,
-                Type = "Irritability"
+                Type = "Irritability",
+                Threshold = 2
             },
             new QuestionType()
             {
                 QuestionTypeId = 16,
-                Type = "Anger and Irritability"
+                Type = "Anger and Irritability",
+                Threshold = 2
             }
             );
 

@@ -20,22 +20,27 @@ namespace MentalSelf.Models.ViewModels
             Ratings = new List<Rating> {
             new Rating {
                 RatingId = 1,
+                RatingAmount = 0,
                 RatingDescription = "Not at all"
             },
             new Rating {
                 RatingId = 2,
+                RatingAmount = 1,
                 RatingDescription = "Rare, less than a couple days"
             },
             new Rating {
                 RatingId = 3,
+                RatingAmount = 2,
                 RatingDescription = "Several days"
             },
             new Rating {
                 RatingId = 4,
+                RatingAmount = 3,
                 RatingDescription = "More than half the days"
             },
             new Rating {
                 RatingId = 5,
+                RatingAmount = 4,
                 RatingDescription = "Nearly every day"
             },
             };
