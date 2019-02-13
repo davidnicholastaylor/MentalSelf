@@ -254,26 +254,25 @@ namespace MentalSelf.Controllers
         // Pass in view model and integer to create method
         public async Task<IActionResult> Create(QuestionResponseViewModel viewModel, int Id)
         {
-            //// Create iterator based on the number of Responses in view model
-            //for (var i = 0; i < viewModel.Responses.Count; i++) {
-            //// Remove User and UserId from iterated Responses
-            //    ModelState.Remove($"Responses[{i}].UserTest.User");
-            //    ModelState.Remove($"Responses[{i}].UserTest.UserId");
-            //}
-
             // Create instance of a test based on Id passed into create method
             Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == Id);
+
+            var currentUser = await GetCurrentUserAsync();
 
             // Create new instance of a UserTest called NewUserTest 
             var NewUserTest = new UserTest()
             {
                 // Provide NewUserTest with necessary values
                 TestId = test.TestId,
-                User = await GetCurrentUserAsync()
+                User = currentUser,
+                UserId = currentUser.Id
             };
 
             // Add NewUserTest to UserTests in database
             _context.Add(NewUserTest);
+
+            ModelState.Remove($"UserTest.User");
+            ModelState.Remove($"UserTest.UserId");
 
             // Check if model state is valid
             if (ModelState.IsValid)
@@ -284,7 +283,6 @@ namespace MentalSelf.Controllers
                     // Give the value of NewUserTest to every instance of UserTest within the list of Responses in the view model
                     viewModel.Responses[i].UserTest = NewUserTest;
                     // Give the value of current user to every instance of User within the list of Responses in the view model
-                    //viewModel.Responses[i].User = await GetCurrentUserAsync();
                     // Add the iterated list of Responses to the database
                     _context.Add(viewModel.Responses[i]);
                 }

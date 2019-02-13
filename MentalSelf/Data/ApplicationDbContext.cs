@@ -13,16 +13,22 @@ namespace MentalSelf.Data
             : base(options)
         {
         }
+
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<QuestionType> QuestionType { get; set; }
+        public DbSet<Rating> Rating { get; set; }
         public DbSet<Response> Response { get; set; }
         public DbSet<Test> Test { get; set; }
         public DbSet<UserTest> UserTest { get; set; }
-        public DbSet<Rating> UserResponse { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.UserTests)
+                .WithOne(ut => ut.User)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<UserTest>()
                .Property(u => u.DateTaken)
@@ -52,37 +58,25 @@ namespace MentalSelf.Data
                 RatingId = 1,
                 RatingAmount = 0,
                 RatingDescription = "Not at all"
-            }
-            );
-
-            modelBuilder.Entity<Rating>().HasData(
+            },
             new Rating()
             {
                 RatingId = 2,
                 RatingAmount = 1,
                 RatingDescription = "Rare, less than a couple days"
-            }
-            );
-
-            modelBuilder.Entity<Rating>().HasData(
+            },
             new Rating()
             {
                 RatingId = 3,
                 RatingAmount = 2,
                 RatingDescription = "Several days"
-            }
-            );
-
-            modelBuilder.Entity<Rating>().HasData(
+            },
             new Rating()
             {
                 RatingId = 4,
                 RatingAmount = 3,
                 RatingDescription = "More than half the days"
-            }
-            );
-
-            modelBuilder.Entity<Rating>().HasData(
+            },
             new Rating()
             {
                 RatingId = 5,

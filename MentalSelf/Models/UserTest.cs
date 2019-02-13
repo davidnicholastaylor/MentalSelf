@@ -23,6 +23,8 @@ namespace MentalSelf.Models
         [Required]
         public string UserId { get; set; }
 
+        public virtual ICollection<Response> Responses { get; set; }
+
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateTaken { get; set; }
