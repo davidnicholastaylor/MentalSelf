@@ -14,6 +14,9 @@ namespace MentalSelf.Models
         [Required]
         public string Type { get; set; }
 
+        [Required]
+        public int Threshold { get; set; }
+
         public ICollection<Question> Questions { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace MentalSelf.Data
         public DbSet<Response> Response { get; set; }
         public DbSet<Test> Test { get; set; }
         public DbSet<UserTest> UserTest { get; set; }
-        public DbSet<UserResponse> UserResponse { get; set; }
+        public DbSet<Rating> UserResponse { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
@@ -46,40 +46,40 @@ namespace MentalSelf.Data
             }
             );
 
-            modelBuilder.Entity<UserResponse>().HasData(
-            new UserResponse() 
+            modelBuilder.Entity<Rating>().HasData(
+            new Rating() 
             {
                 UserResponseId = 1,
                 Rating = "Not at all"
             }
             );
 
-            modelBuilder.Entity<UserResponse>().HasData(
-            new UserResponse()
+            modelBuilder.Entity<Rating>().HasData(
+            new Rating()
             {
                 UserResponseId = 2,
                 Rating = "Rare, less than a couple days"
             }
             );
 
-            modelBuilder.Entity<UserResponse>().HasData(
-            new UserResponse()
+            modelBuilder.Entity<Rating>().HasData(
+            new Rating()
             {
                 UserResponseId = 3,
                 Rating = "Several days"
             }
             );
 
-            modelBuilder.Entity<UserResponse>().HasData(
-            new UserResponse()
+            modelBuilder.Entity<Rating>().HasData(
+            new Rating()
             {
                 UserResponseId = 4,
                 Rating = "More than half the days"
             }
             );
 
-            modelBuilder.Entity<UserResponse>().HasData(
-            new UserResponse()
+            modelBuilder.Entity<Rating>().HasData(
+            new Rating()
             {
                 UserResponseId = 5,
                 Rating = "Nearly every day"

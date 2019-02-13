@@ -17,6 +17,12 @@ namespace MentalSelf.Models
 
         public Test Test { get; set; }
 
+        [Required]
+        public ApplicationUser User { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateTaken { get; set; }

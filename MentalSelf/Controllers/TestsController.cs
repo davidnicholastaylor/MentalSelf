@@ -47,12 +47,12 @@ namespace MentalSelf.Controllers
             // Create a list of Responses that include UserResponses, UserTests, User and Questions that include their QuestionTypes
             // where the TestId of the Questions equal the Id passed in from the TestList view
             List<Response> responses = await _context.Response
-                                    .Include(r => r.UserResponse)
+                                    .Include(r => r.Rating)
                                     .Include(r => r.UserTest)
-                                    .Include(r => r.User)
+                                    .ThenInclude(ut => ut.User)
                                     .Include(r => r.Question)
                                     .ThenInclude(q => q.QuestionType)
-                                    .Where(r => r.Question.TestId == Id && r.User == currentUser)
+                                    .Where(r => r.Question.TestId == Id && r.UserTest.User == currentUser)
                                     .ToListAsync();
 
 
@@ -88,7 +88,7 @@ namespace MentalSelf.Controllers
                 foreach (var r in totalResponses)
                 {
                     // Add a UserResponseId value to the number variable for each interation of the loop
-                    number += r.UserResponseId;
+                    number += r.RatingId;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
                 number = (number / totalResponses.Count()) - 1;
@@ -155,11 +155,12 @@ namespace MentalSelf.Controllers
             // Where the UserTestId associated with the responses
             // Equals the UserTestId associated with the UserTestDisplay variable
             List<Response> responses = await _context.Response
-                        .Include(r => r.UserResponse)
-                        .Include(r => r.User)
+                        .Include(r => r.Rating)
+                        .Include(r => r.UserTest)
+                        .ThenInclude(ut => ut.User)
                         .Include(r => r.Question)
                         .ThenInclude(q => q.QuestionType)
-                        .Where(r => r.UserTestId == UserTestDisplay.UserTestId && r.User == currentUser)
+                        .Where(r => r.UserTestId == UserTestDisplay.UserTestId && r.UserTest.User == currentUser)
                         .OrderBy(r => r.Question.QuestionId)
                         .ToListAsync();
 
@@ -190,7 +191,7 @@ namespace MentalSelf.Controllers
                 foreach (var r in totalResponses)
                 {
                     // Add a UserResponseId value to the number variable for each interation of the loop
-                    number += r.UserResponseId;
+                    number += r.RatingId;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
                 number = (number / totalResponses.Count()) - 1;
@@ -253,21 +254,22 @@ namespace MentalSelf.Controllers
         // Pass in view model and integer to create method
         public async Task<IActionResult> Create(QuestionResponseViewModel viewModel, int Id)
         {
-            // Create iterator based on the number of Responses in view model
-            for (var i = 0; i < viewModel.Responses.Count; i++) {
-            // Remove User and UserId from iterated Responses
-                ModelState.Remove($"Responses[{i}].User");
-                ModelState.Remove($"Responses[{i}].UserId");
-            }
+            //// Create iterator based on the number of Responses in view model
+            //for (var i = 0; i < viewModel.Responses.Count; i++) {
+            //// Remove User and UserId from iterated Responses
+            //    ModelState.Remove($"Responses[{i}].UserTest.User");
+            //    ModelState.Remove($"Responses[{i}].UserTest.UserId");
+            //}
 
             // Create instance of a test based on Id passed into create method
             Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == Id);
 
             // Create new instance of a UserTest called NewUserTest 
             var NewUserTest = new UserTest()
-            { 
+            {
                 // Provide NewUserTest with necessary values
-                TestId = test.TestId
+                TestId = test.TestId,
+                User = await GetCurrentUserAsync()
             };
 
             // Add NewUserTest to UserTests in database
@@ -282,7 +284,7 @@ namespace MentalSelf.Controllers
                     // Give the value of NewUserTest to every instance of UserTest within the list of Responses in the view model
                     viewModel.Responses[i].UserTest = NewUserTest;
                     // Give the value of current user to every instance of User within the list of Responses in the view model
-                    viewModel.Responses[i].User = await GetCurrentUserAsync();
+                    //viewModel.Responses[i].User = await GetCurrentUserAsync();
                     // Add the iterated list of Responses to the database
                     _context.Add(viewModel.Responses[i]);
                 }
@@ -360,6 +362,7 @@ namespace MentalSelf.Controllers
             var UserTestDelete = await _context.UserTest
             // Include the Test property
                 .Include(ut => ut.Test)
+                .Include(ut => ut.User)
             // Select only the UserTests whose Id equals the Id integer passed into the view
                 .FirstOrDefaultAsync(ut => ut.UserTestId == Id);
 
