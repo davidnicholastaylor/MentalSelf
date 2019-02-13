@@ -68,12 +68,12 @@
                                                         *@
                                                         <input asp-for="@Model.Responses[i].RatingId"
                                                          id=@($"rating-{i}-{r}")
-                                                         value="@(Model.Ratings[r].RatingAmount)"
+                                                         value="@(Model.Ratings[r].RatingId)"
                                                          type="radio" />
                                                         @*Create label for input based on the same input id*@
                                                         @*Display [r] iterated UserResponses containing                                     Rating*@
                                                         <label for=@($"rating-{i}-{r}")>
-                                                            <h4>@(Model.Ratings[r].RatingDescription)</h4>
+                                                            <span>@(Model.Ratings[r].RatingDescription)</span>
                                                         </label>
                                                     </div>
                                                 }

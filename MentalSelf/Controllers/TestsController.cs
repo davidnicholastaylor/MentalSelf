@@ -65,7 +65,7 @@ namespace MentalSelf.Controllers
             // Create a list of UserTests that include the Test Data
             List<UserTest> userTests = await _context.UserTest
             .Include(ut => ut.Test)
-            .Where(ut => ut.TestId == Id)
+            .Where(ut => ut.TestId == Id && ut.User == currentUser)
             .ToListAsync();
 
             // Create instance of ResponseDataViewModel
@@ -264,7 +264,6 @@ namespace MentalSelf.Controllers
             {
                 // Provide NewUserTest with necessary values
                 TestId = test.TestId,
-                User = currentUser,
                 UserId = currentUser.Id
             };
 
