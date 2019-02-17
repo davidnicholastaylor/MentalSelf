@@ -12,7 +12,7 @@ namespace MentalSelf.Models
         public int RatingId { get; set; }
 
         [Required]
-        public int RatingAmount { get; set; }
+        public double RatingAmount { get; set; }
 
         [Required]
         public string RatingDescription { get; set; }

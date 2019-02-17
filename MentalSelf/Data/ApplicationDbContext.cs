@@ -265,7 +265,7 @@ namespace MentalSelf.Data
             new Question()
             {
                 QuestionId = 12,
-                QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?",
+                QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around?",
                 QuestionTypeId = 7,
                 TestId = 1
             },

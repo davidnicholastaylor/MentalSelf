@@ -69,7 +69,7 @@ namespace MentalSelf.Migrations
                 {
                     RatingId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RatingAmount = table.Column<int>(nullable: false),
+                    RatingAmount = table.Column<double>(nullable: false),
                     RatingDescription = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -311,11 +311,11 @@ namespace MentalSelf.Migrations
                 columns: new[] { "RatingId", "RatingAmount", "RatingDescription" },
                 values: new object[,]
                 {
-                    { 1, 0, "Not at all" },
-                    { 2, 1, "Rare, less than a couple days" },
-                    { 3, 2, "Several days" },
-                    { 4, 3, "More than half the days" },
-                    { 5, 4, "Nearly every day" }
+                    { 1, 0.0, "Not at all" },
+                    { 2, 1.0, "Rare, less than a couple days" },
+                    { 3, 2.0, "Several days" },
+                    { 4, 3.0, "More than half the days" },
+                    { 5, 4.0, "Nearly every day" }
                 });
 
             migrationBuilder.InsertData(
@@ -374,7 +374,7 @@ namespace MentalSelf.Migrations
                     { 15, "15. Problems with memory (e.g., learning new information) or with location (e.g., finding your way home)? ", 9, 1 },
                     { 14, "14. Problems with sleep that affected your sleep quality over all?", 8, 1 },
                     { 13, "13. Feeling that someone could hear your thoughts, or that you could hear what another person was thinking?", 7, 1 },
-                    { 12, "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?", 7, 1 },
+                    { 12, "12.Hearing things other people couldn’t hear, such as voices even when no one was around?", 7, 1 },
                     { 11, "11. Thoughts of actually hurting yourself?", 6, 1 },
                     { 10, "10. Feeling that your illnesses are not being taken seriously enough?", 5, 1 },
                     { 16, "16. Unpleasant thoughts, urges, or images that repeatedly enter your mind?", 10, 1 },
