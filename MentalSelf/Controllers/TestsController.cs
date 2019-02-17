@@ -44,17 +44,6 @@ namespace MentalSelf.Controllers
         {
             var currentUser = await GetCurrentUserAsync();
 
-            //// Create variable for all Responses in database
-            //var availableResponses = await _context.Response
-            //    .Include(r => r.UserTest.Test)
-            //// Select only the Responses whose TestId equals the Id integer passed into the view
-            //    .FirstOrDefaultAsync(r => r.UserTest.TestId == Id);
-
-            //if (availableResponses == null)
-            //{
-            //    return NotFound();
-            //}
-
             // Create a list of Responses that include UserResponses, UserTests, User and Questions that include their QuestionTypes
             // where the TestId of the Questions equal the Id passed in from the TestList view
             List<Response> responses = await _context.Response
