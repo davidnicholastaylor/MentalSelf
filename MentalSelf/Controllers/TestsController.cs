@@ -55,6 +55,8 @@ namespace MentalSelf.Controllers
                                     .Where(r => r.Question.TestId == Id && r.UserTest.User == currentUser)
                                     .ToListAsync();
 
+            
+
 
             // Create a list of QuestionTypes
             // Select the QuestionTypes available through the Questions on the responses
@@ -83,15 +85,15 @@ namespace MentalSelf.Controllers
                 // equals the QuestionTypeId on the list of QuestionTypes being looped over
                 var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
                 // Create a new integer variable named number
-                int number = new int();
+                double number = new double();
                 // Loop over list of responses held in totalResposnes variable
                 foreach (var r in totalResponses)
                 {
                     // Add a UserResponseId value to the number variable for each interation of the loop
-                    number += r.RatingId;
+                    number += r.Rating.RatingAmount;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
-                number = (number / totalResponses.Count()) - 1;
+                number = (number / totalResponses.Count());
                 
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
@@ -186,15 +188,15 @@ namespace MentalSelf.Controllers
                 // equals the QuestionTypeId on the list of QuestionTypes being looped over
                 var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
                 // Create a new integer variable named number
-                int number = new int();
+                double number = new double();
                 // Loop over list of responses held in totalResposnes variable
                 foreach (var r in totalResponses)
                 {
                     // Add a UserResponseId value to the number variable for each interation of the loop
-                    number += r.RatingId;
+                    number += r.Rating.RatingAmount;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
-                number = (number / totalResponses.Count()) - 1;
+                number = (number / totalResponses.Count());
                 
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;

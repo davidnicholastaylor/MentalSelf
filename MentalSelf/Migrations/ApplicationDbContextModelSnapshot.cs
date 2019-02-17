@@ -52,7 +52,7 @@ namespace MentalSelf.Migrations
                         new { QuestionId = 9, QuestionDesc = "9. Unexplained aches and pains (e.g., head, back, joints, abdomen, legs)?", QuestionTypeId = 5, TestId = 1 },
                         new { QuestionId = 10, QuestionDesc = "10. Feeling that your illnesses are not being taken seriously enough?", QuestionTypeId = 5, TestId = 1 },
                         new { QuestionId = 11, QuestionDesc = "11. Thoughts of actually hurting yourself?", QuestionTypeId = 6, TestId = 1 },
-                        new { QuestionId = 12, QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around ?", QuestionTypeId = 7, TestId = 1 },
+                        new { QuestionId = 12, QuestionDesc = "12.Hearing things other people couldn’t hear, such as voices even when no one was around?", QuestionTypeId = 7, TestId = 1 },
                         new { QuestionId = 13, QuestionDesc = "13. Feeling that someone could hear your thoughts, or that you could hear what another person was thinking?", QuestionTypeId = 7, TestId = 1 },
                         new { QuestionId = 14, QuestionDesc = "14. Problems with sleep that affected your sleep quality over all?", QuestionTypeId = 8, TestId = 1 },
                         new { QuestionId = 15, QuestionDesc = "15. Problems with memory (e.g., learning new information) or with location (e.g., finding your way home)? ", QuestionTypeId = 9, TestId = 1 },
@@ -158,7 +158,7 @@ namespace MentalSelf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RatingAmount");
+                    b.Property<double>("RatingAmount");
 
                     b.Property<string>("RatingDescription")
                         .IsRequired();
@@ -168,11 +168,11 @@ namespace MentalSelf.Migrations
                     b.ToTable("Rating");
 
                     b.HasData(
-                        new { RatingId = 1, RatingAmount = 0, RatingDescription = "Not at all" },
-                        new { RatingId = 2, RatingAmount = 1, RatingDescription = "Rare, less than a couple days" },
-                        new { RatingId = 3, RatingAmount = 2, RatingDescription = "Several days" },
-                        new { RatingId = 4, RatingAmount = 3, RatingDescription = "More than half the days" },
-                        new { RatingId = 5, RatingAmount = 4, RatingDescription = "Nearly every day" }
+                        new { RatingId = 1, RatingAmount = 0.0, RatingDescription = "Not at all" },
+                        new { RatingId = 2, RatingAmount = 1.0, RatingDescription = "Rare, less than a couple days" },
+                        new { RatingId = 3, RatingAmount = 2.0, RatingDescription = "Several days" },
+                        new { RatingId = 4, RatingAmount = 3.0, RatingDescription = "More than half the days" },
+                        new { RatingId = 5, RatingAmount = 4.0, RatingDescription = "Nearly every day" }
                     );
                 });
 

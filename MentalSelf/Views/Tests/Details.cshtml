@@ -1,10 +1,81 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
-@*Informational header*@
+
 <table class="table">
-    <thead>
+    <tbody>
         <tr>
             <td>
+                <div>
+                    <h4>
+                        If you selected "Several Days" on any question or you selected "Rare, less than a couple days" on any question for the categories of substance use, suicidal ideation, or psychosis, then you may want to seek professional help.
+                        <br />
+                        <br />
+                        Beneath your answers is a chart that averages each answer for each disorder. The chart is a general representation of your inclination for a disorder. Your specific answers are more important than the average of them.
+
+                    </h4>
+                </div>
+                <br/>
+                <br/>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        @for (var i = 0; i < Model.QuestionTypes.Count; i++)
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@Model.QuestionTypes[i]"></li>
+                        }
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <div class="carousel-caption" role="option">
+                                <h3>Your individual responses can be found here. Questions and answers are grouped by the disorder with which they are associated.</h3>
+                            </div>
+                        </div>
+                        @*Loop over all question types in QuestionTypes property*@
+                        @foreach (QuestionType qt in Model.QuestionTypes)
+                        {
+                            <div class="item">
+                                <div class="carousel-caption" role="option">
+                                    <div class="row">
+                                        @*Display name of question type*@
+                                        <h2>@qt.Type</h2>
+
+                                    </div>
+                                    @*Loop over all responses in Responses property*@
+                                    @foreach (var r in Model.Responses.OrderBy(r => r.QuestionId))
+                                    {
+                                        // If responses question type id matches the displayed question type                id
+                                        // display the questions pertaining to that question type with the                  user response rating
+                                        if (r.Question.QuestionTypeId == qt.QuestionTypeId)
+                                        {
+                                            <div class="row">
+                                                <h4>
+                                                    @r.Question.QuestionDesc
+                                                </h4>
+                                                <h4 style="text-decoration:underline">
+                                                    @r.Rating.RatingDescription
+                                                </h4>
+                                                @if (r.Rating.RatingAmount >= qt.Threshold)
+                                                {
+                                                    <h4>*This answer indicates you may want to seek help*</h4>
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <br />
+                <br />
                 <div>
                     <h3 class="text-center">
                         Each question is rated on a 0-4 scale.
@@ -19,17 +90,9 @@
                         <br />4 = Nearly every day
                     </h4>
                 </div>
-                <br/>
-                <div>
-                    <h4>
-                        The graph below represents the average of the ratings for each question. Those average ratings are grouped by the categories for each question.
-                         If you selected "Several Days" on any question or you selected "Rare, less than a couple days" on any question for the categories of substance use, suicidal ideation, or psychosis, then you may want to seek professional help.
-                        Similarly for the chart, if you scored an average of 2 for any category or an average of 1 on substance use, suicidal ideation, or psychosis, professional help might benefit you.
-                    </h4>
-                </div>
             </td>
         </tr>
-    </thead>
+    </tbody>
 </table>
 
 @*Chart*@
@@ -68,67 +131,6 @@ chart.render();
 </body>
 </html>
 
-<table class="table">
-    <tbody>
-        <tr>
-            <td>
-                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        @for (var i = 0; i < Model.QuestionTypes.Count; i++)
-                        {
-                            <li data-target="#myCarousel" data-slide-to="@Model.QuestionTypes[i]"></li>
-                        }
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <div class="carousel-caption" role="option">
-                                <h3>Your individual responses can be found here. Questions and answers are grouped by the disorder with which they are associated.</h3>
-                            </div>
-                        </div>
-                        @*Loop over all question types in QuestionTypes property*@
-                        @foreach (QuestionType qt in Model.QuestionTypes)
-                        {
-                            <div class="item">
-                                <div class="carousel-caption" role="option">
-                                    <div class="row">
-                                        @*Display name of question type*@
-                                        <h2>@qt.Type</h2>
-                                    </div>
-                                    @*Loop over all responses in Responses property*@
-                                    @foreach (var r in Model.Responses.OrderBy(r => r.QuestionId))
-                                    {
-                                        // If responses question type id matches the displayed question type                id
-                                        // display the questions pertaining to that question type with the                  user response rating
-                                        if (r.Question.QuestionTypeId == qt.QuestionTypeId)
-                                        {
-                                            <div class="row">
-                                                <h4>
-                                                    @r.Question.QuestionDesc
-                                                </h4> 
-                                                <h4 style="text-decoration:underline">
-                                                    @r.Rating.RatingDescription
-                                                </h4>
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 <div style="text-align: center">
     <a class="btn btn-info" role="button" asp-action="Index" asp-route-id="@Model.UserTest.TestId">Back to List</a>
