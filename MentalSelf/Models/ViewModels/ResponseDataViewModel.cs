@@ -9,6 +9,6 @@ namespace MentalSelf.Models.ViewModels
     {
     public UserTest UserTest { get; set; }
     public string QuestionType { get; set; }
-    public int NumberOfResponses { get; set; }
+    public double NumberOfResponses { get; set; }
     }
 }

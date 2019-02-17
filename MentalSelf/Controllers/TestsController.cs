@@ -44,6 +44,17 @@ namespace MentalSelf.Controllers
         {
             var currentUser = await GetCurrentUserAsync();
 
+            //// Create variable for all Responses in database
+            //var availableResponses = await _context.Response
+            //    .Include(r => r.UserTest.Test)
+            //// Select only the Responses whose TestId equals the Id integer passed into the view
+            //    .FirstOrDefaultAsync(r => r.UserTest.TestId == Id);
+
+            //if (availableResponses == null)
+            //{
+            //    return NotFound();
+            //}
+
             // Create a list of Responses that include UserResponses, UserTests, User and Questions that include their QuestionTypes
             // where the TestId of the Questions equal the Id passed in from the TestList view
             List<Response> responses = await _context.Response
@@ -54,6 +65,8 @@ namespace MentalSelf.Controllers
                                     .ThenInclude(q => q.QuestionType)
                                     .Where(r => r.Question.TestId == Id && r.UserTest.User == currentUser)
                                     .ToListAsync();
+
+            
 
 
             // Create a list of QuestionTypes
@@ -83,15 +96,15 @@ namespace MentalSelf.Controllers
                 // equals the QuestionTypeId on the list of QuestionTypes being looped over
                 var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
                 // Create a new integer variable named number
-                int number = new int();
+                double number = new double();
                 // Loop over list of responses held in totalResposnes variable
                 foreach (var r in totalResponses)
                 {
                     // Add a UserResponseId value to the number variable for each interation of the loop
-                    number += r.RatingId;
+                    number += r.Rating.RatingAmount;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
-                number = (number / totalResponses.Count()) - 1;
+                number = (number / totalResponses.Count());
                 
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
@@ -186,15 +199,15 @@ namespace MentalSelf.Controllers
                 // equals the QuestionTypeId on the list of QuestionTypes being looped over
                 var totalResponses = responses.Where(r => r.Question.QuestionTypeId == qt.QuestionTypeId);
                 // Create a new integer variable named number
-                int number = new int();
+                double number = new double();
                 // Loop over list of responses held in totalResposnes variable
                 foreach (var r in totalResponses)
                 {
                     // Add a UserResponseId value to the number variable for each interation of the loop
-                    number += r.RatingId;
+                    number += r.Rating.RatingAmount;
                 }
                 // Divide the number variable by the amount of totalResponses and subtract 1
-                number = (number / totalResponses.Count()) - 1;
+                number = (number / totalResponses.Count());
                 
                 // Set the NumberOfResponses variable in the view model to the value of the number variable
                 rd.NumberOfResponses = number;
