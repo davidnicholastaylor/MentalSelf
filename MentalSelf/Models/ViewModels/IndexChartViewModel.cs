@@ -8,6 +8,7 @@ namespace MentalSelf.Models.ViewModels
 {
     public class IndexChartViewModel
     {
+        public Test Test { get; set; }
         public List<UserTest> UserTest { get; set; }
         public List<Response> Responses { get; set; }
         public List<QuestionType> QuestionTypes { get; set; }

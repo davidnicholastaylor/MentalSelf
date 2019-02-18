@@ -101,12 +101,13 @@ namespace MentalSelf.Controllers
                 responseData.Add(rd);
             }
 
-            
+            Test test = await _context.Test.FirstOrDefaultAsync(t => t.TestId == Id);
 
             // Create instance of IndexChartViewModel
             IndexChartViewModel viewModel = new IndexChartViewModel();
             // Add values to the view model based on variables above
 
+            viewModel.Test = test;
             viewModel.UserTest = userTests;
             viewModel.Responses = responses;
             viewModel.QuestionTypes = questionTypes;

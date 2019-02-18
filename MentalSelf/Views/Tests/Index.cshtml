@@ -71,6 +71,11 @@ chart.render();
 
 <table class="table table-hover">
     <tbody>
+        <div style="text-align:center">
+            <a class="btn btn-primary" role="button" asp-action="Create" asp-route-id="@Model.Test.TestId">Take the test</a>
+        </div>
+        <br/>
+        <br />
         @*Loop over all user tests  through UserTest property from view model*@
         @foreach (var item in Model.UserTest)
         {
