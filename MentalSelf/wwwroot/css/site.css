@@ -29,6 +29,7 @@ body {
     top: 10px;
     bottom: auto;
     padding-left: 5%;
+    color: antiquewhite;
 }
 
 .carousel-inner {
@@ -44,6 +45,23 @@ body {
     margin-right: auto;
     width: 95%;
     height: auto
+}
+
+.psychtoday {
+    padding: .25em .75em .25em .75em;
+    font-size: large;
+    color: antiquewhite;
+    border: solid 2px lightslategrey;
+}
+
+.psychtoday:hover {
+    color: antiquewhite;
+    text-decoration: underline;
+    background-color: lightslategray;
+}
+
+.psychtoday:visited {
+    color: antiquewhite;
 }
 
 
