@@ -1,5 +1,12 @@
 ﻿@model MentalSelf.Models.ViewModels.TestDetailsViewModel
 
+@{ViewData["Category Severity"] = "";}
+
+@if(Model.UserTest.TestId == 1) {
+    ViewData["Category Severity"] = Model.Adult;
+} else {
+    ViewData["Category Severity"] = Model.Child;
+}
 
 <table class="table">
     <tbody>
@@ -7,7 +14,7 @@
             <td>
                 <div>
                     <h4>
-                        If you selected "Several Days" on any question or you selected "Rare, less than a couple days" on any question for the categories of substance use, suicidal ideation, or psychosis, then you may want to seek professional help.
+                        If you selected "Several Days" on any question or you selected "Rare, less than a couple days" on any question for the categories of @ViewData["Category Severity"], then you may want to seek professional help.
                         <br />
                         <br />
                         Beneath your answers is a chart that averages each answer for each disorder. The chart is a general representation of your inclination for a disorder. Your specific answers are more important than the average of them.

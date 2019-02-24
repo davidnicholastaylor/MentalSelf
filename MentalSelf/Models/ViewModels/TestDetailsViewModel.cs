@@ -16,9 +16,16 @@ namespace MentalSelf.Models.ViewModels
         public List<QuestionType> QuestionTypes { get; set; }
         public List<Response> Responses { get; set; }
         public List<Rating> Ratings { get; set; }
-
         public List<ResponseDataViewModel> ResponseData { get; set; } 
+
+        public string Child { get; set; }
+        public string Adult { get; set; }
+        public TestDetailsViewModel() {
+            Child = "inattention, substance use, suicidal ideation, or psychosis";
+            Adult = "substance use, suicidal ideation, or psychosis";
+        }
     }
+
 
     [DataContract]
     public class DataPoint
