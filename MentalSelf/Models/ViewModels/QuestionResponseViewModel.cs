@@ -16,7 +16,7 @@ namespace MentalSelf.Models.ViewModels
     // Create instance of QuestionResponseViewModel
         public QuestionResponseViewModel()
         {
-            // Create new list of User Responses to be used in view
+            // Create new list of Ratings to be used in view
             Ratings = new List<Rating> {
             new Rating {
                 RatingId = 1,
