@@ -47,6 +47,23 @@ body {
     height: auto
 }
 
+.QTLink {
+    padding: .2em .75em .5em .75em;
+    font-size: x-large;
+    color: antiquewhite;
+    text-decoration: underline;
+    border: solid 2px lightslategrey;
+}
+
+    .QTLink:hover {
+        color: antiquewhite;
+        background-color: lightslategray;
+    }
+
+    .QTLink:visited {
+        color: burlywood;
+    }
+
 .psychtoday {
     padding: .25em .75em .25em .75em;
     font-size: large;
@@ -55,14 +72,14 @@ body {
     border: solid 2px lightslategrey;
 }
 
-.psychtoday:hover {
-    color: antiquewhite;
-    background-color: lightslategray;
-}
+    .psychtoday:hover {
+        color: antiquewhite;
+        background-color: lightslategray;
+    }
 
-.psychtoday:visited {
-    color: antiquewhite;
-}
+    .psychtoday:visited {
+        color: antiquewhite;
+    }
 
 
 /* Hide/rearrange for smaller screens */
