@@ -26,7 +26,7 @@ namespace MentalSelf.Controllers
         // Create component to get current user from the _userManager variable
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // Pass in arguments from private varaibles to be used publicly
+        // Create public constructor for private variables to be used publicly
         public TestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -245,11 +245,12 @@ namespace MentalSelf.Controllers
 
             // Create instance of QuestionResponseViewModel
             QuestionResponseViewModel viewModel = new QuestionResponseViewModel();
-            // Give the value of the created list of questions to the Questions List in the view model
+            // Give the value of "questions" to the Questions list in the view model
             viewModel.Questions = questions;
+            // Give the value of "test" to the Test instance in the view model
             viewModel.Test = test;
             
-            // return view model
+            // return the view model
             return View(viewModel);
         }
 
