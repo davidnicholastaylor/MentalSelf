@@ -20,11 +20,14 @@ namespace MentalSelf.Models.ViewModels
 
         public string Child { get; set; }
         public string Adult { get; set; }
-        public TestDetailsViewModel() {
-            Child = "inattention, substance use, suicidal ideation, or psychosis";
-            Adult = "substance use, suicidal ideation, or psychosis";
+            public TestDetailsViewModel() {
+
+                Child = "inattention, substance use, suicidal ideation, or psychosis";
+
+                Adult = "substance use, suicidal ideation, or psychosis";
+            }
         }
-    }
+    
 
 
     [DataContract]

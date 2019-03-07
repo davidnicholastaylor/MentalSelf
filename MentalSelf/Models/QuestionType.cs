@@ -16,6 +16,9 @@ namespace MentalSelf.Models
 
         [Required]
         public int Threshold { get; set; }
+        
+
+        public string QTLink { get; set; }
 
         public ICollection<Question> Questions { get; set; }
     }
