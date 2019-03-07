@@ -90,97 +90,113 @@ namespace MentalSelf.Data
             {
                 QuestionTypeId = 1,
                 Type = "Depression",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 2,
                 Type = "Anger",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 3,
                 Type = "Mania",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 4,
                 Type = "Anxiety",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 5,
                 Type = "Somatic Symptoms",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 6,
                 Type = "Suicidal Ideation",
-                Threshold = 1
+                Threshold = 1,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 7,
                 Type = "Psychosis",
-                Threshold = 1
+                Threshold = 1,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 8,
                 Type = "Sleep Problems",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 9,
                 Type = "Memory",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 10,
                 Type = "Repetative Thoughts and Behaviors",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 11,
                 Type = "Dissociation",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 12,
                 Type = "Personality Functioning",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 13,
                 Type = "Substance Use",
-                Threshold = 1
+                Threshold = 1,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 14,
                 Type = "Inattention",
-                Threshold = 1
+                Threshold = 1,
+                QTLink = ""
             },
             new QuestionType()
             { 
                 QuestionTypeId = 15,
                 Type = "Irritability",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             },
             new QuestionType()
             {
                 QuestionTypeId = 16,
                 Type = "Anger and Irritability",
-                Threshold = 2
+                Threshold = 2,
+                QTLink = ""
             }
             );
 
